@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ms" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sambung WhatsApp | Zokata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F172A',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+</head>
+
+<body class="h-full bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 overflow-hidden">
+    <div class="flex h-full">
+        <!-- Sidebar and Header injected by components.js -->
+
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+            <div class="flex-1 overflow-y-auto p-10">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Header Section -->
+                    <div class="flex justify-between items-end mb-10">
+                        <div>
+                            <h2 class="text-4xl font-black tracking-tight mb-2">Sambungan WhatsApp</h2>
+                            <p class="text-slate-500 font-medium">Urus sambungan akaun WhatsApp anda dengan Zokata CRM.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="connection-container">
+                        <!-- Content will be injected here by JavaScript -->
+                        <div class="premium-card p-10 flex flex-col items-center justify-center text-center">
+                            <div
+                                class="size-16 border-4 border-slate-200 border-t-primary rounded-full animate-spin mb-4">
+                            </div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Memuatkan sistem...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        const socket = io('http://localhost:3000');
+        let currentStatus = 'ready_to_scan';
+        let countdownInterval = null;
+        let secondsLeft = 15;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initLayout('whatsapp');
+
+            socket.on('qr', (url) => {
+                renderWhatsAppUI(url);
+                resetCountdown();
+            });
+
+            socket.on('ready', (data) => {
+                if (countdownInterval) clearInterval(countdownInterval);
+                completeConnection(data.number);
+            });
+
+            socket.on('disconnected', () => {
+                WagoData.settings.whatsappConnected = false;
+                WagoData.settings.whatsappAccount = null;
+                saveWagoData();
+                renderWhatsAppUI();
+            });
+
+            renderWhatsAppUI();
+        });
+
+        function resetCountdown() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            secondsLeft = 15;
+            updateTimerUI();
+
+            countdownInterval = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft < 0) secondsLeft = 15;
+                updateTimerUI();
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            const timerEl = document.getElementById('qr-timer');
+            const barEl = document.getElementById('qr-refresh-bar');
+
+            if (timerEl) timerEl.innerText = `${secondsLeft}s`;
+            if (barEl) {
+                const percentage = (secondsLeft / 15) * 100;
+                barEl.style.width = `${percentage}%`;
+                // Pulse color when low
+                if (secondsLeft <= 3) {
+                    barEl.classList.replace('bg-green-500', 'bg-red-500');
+                } else {
+                    barEl.classList.replace('bg-red-500', 'bg-green-500');
+                }
+            }
+        }
+
+        function renderWhatsAppUI(qrUrl = null) {
+            const container = document.getElementById('connection-container');
+            const isConnected = WagoData.settings.whatsappConnected;
+
+            if (isConnected) {
+                container.innerHTML = `
+                    <div class="premium-card p-10 border-l-4 border-green-500 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div class="flex items-start gap-8">
+                            <div class="size-24 rounded-3xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-500 shadow-inner">
+                                <span class="material-symbols-outlined text-5xl">check_circle</span>
+                            </div>
+                            <div class="flex-1 text-left">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">Akaun disambungkan</h3>
+                                    <span class="px-3 py-1 bg-green-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full animate-pulse">Online</span>
+                                </div>
+                                <p class="text-slate-500 font-medium mb-6">Akaun WhatsApp anda sedang aktif dan sedia untuk menerima lead serta menghantar mesej automatik.</p>
+                                
+                                <div class="grid grid-cols-2 gap-4 mb-8">
+                                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">No. Telefon</p>
+                                        <p class="text-sm font-bold text-slate-900 dark:text-white">${WagoData.settings.whatsappAccount || 'Disambungkan'}</p>
+                                    </div>
+                                    <div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
+                                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Tarikh</p>
+                                        <p class="text-sm font-bold text-slate-900 dark:text-white">${new Date().toLocaleDateString('ms-MY')}</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <button onclick="disconnectWhatsApp()" class="btn-outline border-red-200 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 px-8 py-3 rounded-2xl">
+                                        <span class="material-symbols-outlined">link_off</span> Putuskan Sambungan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // If we have a REAL QR from the server, we show it and DISABLE simulation
+                const hasRealQR = qrUrl !== null;
+                const qrImg = qrUrl || 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=Zokata-WhatsApp-Sync-Mockup';
+                const clickHandler = hasRealQR ? '' : 'onclick="simulateConnection()"';
+                const cursorClass = hasRealQR ? 'cursor-default' : 'cursor-pointer';
+                const labelText = hasRealQR ? 'Imbas QR Code di bawah' : 'Klik QR untuk simulasi';
+
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500 text-left">
+                        <div class="premium-card p-10 flex flex-col items-center justify-center text-center">
+                            <div id="qr-box" ${clickHandler} class="bg-white p-4 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 mb-8 group relative overflow-hidden transition-transform ${hasRealQR ? '' : 'hover:scale-105'} ${cursorClass}">
+                                ${!hasRealQR ? `
+                                <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <div class="size-16 rounded-full bg-primary text-white flex items-center justify-center shadow-lg">
+                                        <span class="material-symbols-outlined text-3xl">play_circle</span>
+                                    </div>
+                                </div>
+                                ` : `
+                                <div class="absolute top-0 left-0 w-full h-1 bg-slate-100">
+                                    <div id="qr-refresh-bar" class="h-full bg-green-500 transition-all duration-1000" style="width: 100%"></div>
+                                </div>
+                                `}
+                                <img src="${qrImg}" alt="WhatsApp QR Code" class="size-64 object-contain">
+                            </div>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <p class="text-sm font-bold text-slate-900 dark:text-white">${labelText}</p>
+                                ${hasRealQR ? `<span id="qr-timer" class="text-[10px] font-black text-green-500 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full animate-pulse">15s</span>` : ''}
+                            </div>
+                            <p class="text-xs text-slate-500 max-w-[240px]">Ambil telefon anda dan imbas kod QR di atas. Kod ini akan disegar semula setiap 15 saat untuk keselamatan.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="premium-card p-8">
+                                <h3 class="text-lg font-black text-slate-900 dark:text-white mb-4">Langkah-langkah</h3>
+                                <div class="space-y-6">
+                                    <div class="flex gap-4">
+                                        <div class="size-8 rounded-xl bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">1</div>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">Buka aplikasi WhatsApp pada telefon anda.</p>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="size-8 rounded-xl bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">2</div>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">Pergi ke **Settings** > **Linked Devices**.</p>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="size-8 rounded-xl bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">3</div>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">Halakan kamera pada kod QR ini.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-8 bg-blue-50 dark:bg-blue-900/20 rounded-[2rem] border border-blue-100 dark:border-blue-800">
+                                <div class="flex gap-4">
+                                    <span class="material-symbols-outlined text-blue-500">info</span>
+                                    <div>
+                                        <p class="text-sm font-black text-blue-900 dark:text-blue-100 mb-1">Penyambungan Automatik</p>
+                                        <p class="text-xs text-blue-700 dark:text-blue-300 font-medium leading-relaxed">Setelah diimbas, CRM akan mengesan akaun anda secara automatik.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function simulateConnection() {
+            const qrBox = document.getElementById('qr-box');
+            qrBox.innerHTML = `
+                <div class="size-64 flex flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-slate-800 rounded-2xl">
+                    <div class="size-12 border-4 border-slate-200 border-t-green-500 rounded-full animate-spin"></div>
+                    <p class="text-[10px] font-black tracking-widest uppercase text-slate-400 animate-pulse">Menghubungkan...</p>
+                </div>
+            `;
+            qrBox.onclick = null;
+
+            setTimeout(() => {
+                completeConnection('01x-xxxxxxx (Simulation)');
+            }, 2000);
+        }
+
+        function completeConnection(number) {
+            WagoData.settings.whatsappConnected = true;
+            WagoData.settings.whatsappAccount = number;
+            saveWagoData();
+
+            WagoComponents.showToast('Berjaya!', 'WhatsApp telah disambungkan.', 'check_circle', 'success');
+            renderWhatsAppUI();
+        }
+
+        function disconnectWhatsApp() {
+            if (confirm('Sahkan untuk putuskan sambungan WhatsApp?')) {
+                WagoData.settings.whatsappConnected = false;
+                WagoData.settings.whatsappAccount = null;
+                saveWagoData();
+                renderWhatsAppUI();
+            }
+        }
+    </script>
+</body>
+
+</html>

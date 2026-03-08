@@ -1,0 +1,15 @@
+node_modules/
+.env
+*.zip
+data/
+.gemini/
+.agents/
+.agent/
+_agents/
+_agent/
+brain/
+tmp/
+*.log
+.wwebjs_auth/
+Dashboard.zip
+Landing Page.zip

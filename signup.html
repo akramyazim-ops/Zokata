@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign Up | Zokata</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <!-- Brand Info -->
+        <div class="hidden md:block">
+            <div class="size-16 rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/30 mb-8">
+                <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-5xl font-black tracking-tighter leading-tight mb-6">Start Building Your Sales Empire.</h1>
+            <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Join thousands of businesses that
+                have automated their sales with Zokata.</p>
+
+            <div class="space-y-6">
+                <div class="flex items-center gap-4">
+                    <div class="bg-primary/10 p-2 rounded-lg text-primary">
+                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                    </div>
+                    <span class="text-sm font-bold text-slate-600">1-Click WhatsApp Integration</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="bg-primary/10 p-2 rounded-lg text-primary">
+                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                    </div>
+                    <span class="text-sm font-bold text-slate-600">24/7 Auto Replies</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="bg-primary/10 p-2 rounded-lg text-primary">
+                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                    </div>
+                    <span class="text-sm font-bold text-slate-600">Real-time Sales Reports</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="premium-card p-10">
+            <div class="flex items-center gap-3 mb-10">
+                <div
+                    class="size-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary/20 overflow-hidden">
+                    <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Zokata</h1>
+            </div>
+
+            <form class="space-y-6" action="dashboard.html" method="GET">
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Full
+                            Name</label>
+                        <input type="text" placeholder="John Doe"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10 transition-all"
+                            required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">WhatsApp
+                            No.</label>
+                        <input type="tel" placeholder="+123456789"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10 transition-all"
+                            required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Email
+                            Address</label>
+                        <input type="email" placeholder="john@company.com"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10 transition-all"
+                            required>
+                    </div>
+                    <div class="space-y-2">
+                        <label
+                            class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Password</label>
+                        <input type="password" placeholder="Min 8 characters"
+                            class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10 transition-all"
+                            required>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3 py-2">
+                    <input type="checkbox" id="terms"
+                        class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" required>
+                    <label for="terms" class="text-[11px] text-slate-400 leading-relaxed">I agree to the <a href="#"
+                            class="text-primary hover:underline">Terms & Conditions</a> and Privacy Policy of Zokata
+                        CRM.</label>
+                </div>
+
+                <button type="submit" class="w-full btn-primary py-5 rounded-2xl text-base shadow-xl shadow-primary/20">
+                    Create Free Account (7 Days)
+                </button>
+            </form>
+
+            <div class="mt-8 pt-8 border-t border-slate-50 dark:border-slate-800 text-center">
+                <p class="text-sm text-slate-500 font-medium">Already have an account?
+                    <a href="login.html" class="text-primary font-black hover:underline ml-1">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        const signupForm = document.querySelector('form');
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const inputs = e.target.querySelectorAll('input');
+            const name = inputs[0].value;
+            const phone = inputs[1].value;
+            const email = inputs[2].value;
+            const password = inputs[3].value;
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Creating account...';
+            btn.disabled = true;
+
+            try {
+                const client = ZokatAuth.getClient();
+                // 1. Sign up user
+                const { data, error } = await client.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: { full_name: name, phone: phone }
+                    }
+                });
+
+                if (error) throw error;
+
+                // 2. Create profile entry (if not handled by trigger)
+                const { error: profileError } = await client
+                    .from('profiles')
+                    .insert({
+                        id: data.user.id,
+                        name: name,
+                        tier: 'basic',
+                        subscription_active: true,
+                        trial_ends: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                        features: {
+                            leadLimit: 100,
+                            salesDashboard: false,
+                            autoReminder: false,
+                            basicPipeline: true
+                        }
+                    });
+
+                if (profileError) console.warn('Profile creation error (might already exist):', profileError);
+
+                alert('Account created! Please check your email for verification if needed.');
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                console.error('Signup error:', err);
+                alert(err.message || 'Signup failed.');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

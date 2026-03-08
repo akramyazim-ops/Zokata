@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sales Pipeline | Zokata</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+    <div class="flex h-full" id="main-layout">
+        <!-- Sidebar and Header injected here -->
+        <main class="flex-1 flex flex-col overflow-hidden" id="main-content">
+            <!-- Scrollable Content -->
+            <div class="flex h-full" id="main-layout">
+                <!-- Sidebar and Header injected here -->
+                <main class="flex-1 flex flex-col min-w-0 overflow-hidden" id="main-content">
+                    <!-- Scrollable Content -->
+                    <div class="flex-1 overflow-y-auto p-10 space-y-8" id="pipeline-content"
+                        data-tier-require="basicPipeline">
+                        <!-- Tab Header -->
+                        <div class="premium-card p-2 flex gap-2 bg-slate-50/50 dark:bg-slate-800/30 overflow-x-auto"
+                            id="pipeline-tabs">
+                            <!-- Tabs will be injected here -->
+                        </div>
+
+                        <!-- Active Stage Table -->
+                        <div class="premium-card">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left">
+                                    <thead
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-800">
+                                        <tr>
+                                            <th class="p-6">Customer Name</th>
+                                            <th class="p-6">Source</th>
+                                            <th class="p-6">Date</th>
+                                            <th class="p-6 text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-50 dark:divide-slate-800"
+                                        id="pipeline-table-body">
+                                        <!-- Leads will be injected here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- Scripts -->
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+            <script src="js/auth.js"></script>
+            <script src="js/data.js"></script>
+            <script src="js/components.js"></script>
+            <script>
+                let activeStage = 'New';
+                const stages = [
+                    { id: 'New', name: 'New Lead', count: 0, color: 'bg-blue-500' },
+                    { id: 'Qualified', name: 'Qualified', count: 0, color: 'bg-primary' },
+                    { id: 'Follow-up', name: 'Follow Up', count: 0, color: 'bg-orange-500' },
+                    { id: 'Closing', name: 'Closing', count: 0, color: 'bg-green-500' }
+                ];
+
+                document.addEventListener('DOMContentLoaded', async () => {
+                    const user = await ZokatAuth.requireAuth();
+                    if (!user) return;
+
+                    await loadAllUserData();
+                    ZokatAuth.applyTierGating(user.features);
+
+                    initLayout('pipeline');
+                    updateCounts();
+                    renderPipeline();
+
+                    // Real-time update listener
+                    window.addEventListener('wago-data-update', (e) => {
+                        console.log('Pipeline page received data update:', e.detail);
+                        updateCounts();
+                        renderPipeline();
+                    });
+                });
+
+                function updateCounts() {
+                    stages.forEach(stage => {
+                        // Exclude any group-sourced leads from pipeline counts
+                        stage.count = WagoData.leads.filter(l => l.status === stage.id && l.source !== 'WhatsApp Group').length;
+                    });
+                }
+
+                function setActiveStage(id) {
+                    activeStage = id;
+                    renderPipeline();
+                }
+
+                async function moveLead(id) {
+                    const lead = WagoData.leads.find(l => l.id === id);
+                    if (!lead) return;
+
+                    const currentIndex = stages.findIndex(s => s.id === lead.status);
+                    if (currentIndex !== -1 && currentIndex < stages.length - 1) {
+                        const nextStage = stages[currentIndex + 1];
+                        lead.status = nextStage.id;
+
+                        try {
+                            await ZokatAuth.apiFetch(`/api/leads/${lead.id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ status: lead.status })
+                            });
+                            await logActivity(lead.name, `Pipeline Update: ${nextStage.name}`, 'standard', 'sync');
+                            updateCounts();
+                            renderPipeline();
+                        } catch (err) {
+                            console.error('Error moving lead:', err);
+                        }
+                    }
+                }
+
+                async function completeLead(id) {
+                    const lead = WagoData.leads.find(l => l.id == id);
+                    if (lead) {
+                        lead.status = 'Converted';
+                        try {
+                            await ZokatAuth.apiFetch(`/api/leads/${lead.id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ status: lead.status })
+                            });
+                            await logActivity(lead.name, 'Lead Completed Pipeline', 'success', 'check_circle');
+                            renderPipeline();
+                        } catch (err) {
+                            console.error('Error completing lead:', err);
+                        }
+                    }
+                }
+
+                async function saveNote(id, value) {
+                    const lead = WagoData.leads.find(l => l.id === id);
+                    if (lead) {
+                        lead.note = value;
+                        try {
+                            await ZokatAuth.apiFetch(`/api/leads/${lead.id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ note: value })
+                            });
+                        } catch (err) {
+                            console.error('Error saving note:', err);
+                        }
+                    }
+                }
+
+                function renderPipeline() {
+                    // Render Tabs
+                    const tabsContainer = document.getElementById('pipeline-tabs');
+                    tabsContainer.innerHTML = stages.map(stage => `
+                <button onclick="setActiveStage('${stage.id}')" 
+                    class="px-8 py-4 rounded-2xl font-black text-sm transition-all flex items-center gap-3 shrink-0 ${activeStage === stage.id ? 'bg-white dark:bg-slate-800 shadow-sm text-primary' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}">
+                    <div class="size-2 rounded-full ${stage.color} ${activeStage === stage.id ? 'animate-pulse' : ''}"></div>
+                    ${stage.name}
+                    <span class="text-[10px] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-lg opacity-60">${stage.count}</span>
+                </button>
+            `).join('');
+
+                    // Render Table
+                    const tableBody = document.getElementById('pipeline-table-body');
+
+                    // Filter leads based on active stage AND source (exclude groups)
+                    let leadsToShow = WagoData.leads.filter(l => l.status === activeStage && l.source !== 'WhatsApp Group');
+
+                    if (leadsToShow.length === 0) {
+                        tableBody.innerHTML = `<tr><td colspan="4" class="p-10 text-center text-slate-400 font-bold italic">No leads for this stage...</td></tr>`;
+                        return;
+                    }
+
+                    tableBody.innerHTML = leadsToShow.map(lead => {
+                        const isLastStage = activeStage === stages[stages.length - 1].id;
+                        return `
+                <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <td class="p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="size-10 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center font-black text-xs">
+                                ${lead.initial}
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-700 dark:text-slate-200">${lead.name}</p>
+                                <p class="text-[10px] text-slate-400 font-bold">${lead.phone}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 text-sm font-bold text-slate-500">${lead.source}</td>
+                    <td class="p-6 text-xs text-slate-400 font-bold">${lead.date.split(',')[0]}</td>
+                    <td class="p-6 text-right">
+                        <div class="flex items-center justify-end gap-3 translate-x-4">
+                            <!-- Note Section -->
+                            <div class="flex items-center gap-2 group/note">
+                                <input type="text" 
+                                    onchange="saveNote(${lead.id}, this.value)"
+                                    placeholder="Note..."
+                                    value="${lead.note || ''}"
+                                    class="bg-transparent border-none focus:ring-0 text-xs font-bold text-slate-500 text-right w-32 placeholder:text-slate-300 opacity-60 hover:opacity-100 focus:opacity-100 transition-all">
+                                <div class="size-10 flex items-center justify-center text-slate-300">
+                                    <span class="material-symbols-outlined text-xl">sticky_note_2</span>
+                                </div>
+                            </div>
+
+                            <!-- Move/Complete Button -->
+                            ${!isLastStage ? `
+                                <button onclick="moveLead(${lead.id})" 
+                                    class="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-xl transition-all group/move">
+                                    <span class="text-[10px] font-black uppercase tracking-widest hidden group-hover/move:block animate-in slide-in-from-right-2">Next</span>
+                                    <span class="material-symbols-outlined text-xl">arrow_forward_ios</span>
+                                </button>
+                            ` : `
+                                <button onclick="completeLead(${lead.id})" 
+                                    class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-xl hover:scale-105 transition-all group/complete">
+                                    <span class="text-[10px] font-black uppercase tracking-widest hidden group-hover/complete:block">Completed (Converted)</span>
+                                    <span class="material-symbols-outlined text-xl">check_circle</span>
+                                </button>
+                            `}
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+                }
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard | Zokata</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+    <div class="flex h-full" id="main-layout">
+        <!-- Sidebar and Header will be injected by components.js -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden" id="main-content">
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-10 space-y-10" id="dashboard-content">
+                <!-- Welcome Section -->
+                <div class="flex items-end justify-between">
+                    <div>
+                        <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Welcome, <span
+                                id="user-display-name">Amir</span>! 👋</h2>
+                        <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">Here is your sales performance
+                            for today.</p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="stats-grid">
+                    <!-- Stats cards will be injected here -->
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                    <!-- Sales Chart Holder -->
+                    <div class="lg:col-span-2 premium-card p-8 flex flex-col min-h-[400px]"
+                        data-tier-require="salesDashboard">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                            <div>
+                                <h3 class="text-xl font-black">Sales Performance</h3>
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">January -
+                                    June 2024</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-4">
+                                <div
+                                    class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-100 dark:border-slate-700">
+                                    <span class="text-[10px] font-black uppercase text-slate-400">From</span>
+                                    <input type="date"
+                                        class="bg-transparent border-none p-0 text-xs font-bold focus:ring-0">
+                                    <span class="text-[10px] font-black uppercase text-slate-400">To</span>
+                                    <input type="date"
+                                        class="bg-transparent border-none p-0 text-xs font-bold focus:ring-0">
+                                </div>
+                                <select
+                                    class="bg-slate-50 dark:bg-slate-800 border-none rounded-xl px-4 py-2 text-xs font-bold focus:ring-2 focus:ring-primary/20">
+                                    <option>Weekly</option>
+                                    <option selected>Monthly</option>
+                                    <option>Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 bg-slate-50/50 dark:bg-slate-800/20 rounded-3xl border-2 border-dashed border-slate-100 dark:border-slate-800 flex items-center justify-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent"></div>
+                            <div class="text-center z-10">
+                                <span
+                                    class="material-symbols-outlined text-5xl text-primary/30 mb-4 animate-bounce">query_stats</span>
+                                <p class="text-slate-400 font-bold text-sm">Sales Chart will be displayed here</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="premium-card p-8 flex flex-col">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="text-xl font-black">Recent Activity</h3>
+                            <button
+                                class="text-primary text-xs font-black uppercase tracking-widest hover:underline">See
+                                All</button>
+                        </div>
+                        <div class="flex-1 space-y-6" id="activity-feed">
+                            <!-- Activities will be injected here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Stats -->
+                <div class="flex flex-col md:flex-row gap-6 italic text-slate-400 text-xs font-medium pb-4">
+                    <p>System updated: <span class="font-bold text-slate-600 dark:text-slate-300">Just now</span>
+                    </p>
+                    <p>Server Location: <span class="font-bold text-slate-600 dark:text-slate-300">Kuala Lumpur,
+                            MY</span>
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Force authentication and get user info
+            const user = await ZokatAuth.requireAuth();
+            if (!user) return; // requireAuth handles redirect
+
+            // Sync user data from server
+            await loadAllUserData();
+
+            // Apply tier-based feature gating
+            ZokatAuth.applyTierGating(user.features);
+
+            initLayout('dashboard');
+            renderDashboard();
+
+            // Listen for global data updates (e.g., from Socket.io in data.js)
+            window.addEventListener('wago-data-update', (e) => {
+                console.log('Dashboard received data update:', e.detail);
+                renderDashboard();
+            });
+
+            // Handle specific errors from data.js
+            window.addEventListener('wago-error', (e) => {
+                alert(e.detail);
+            });
+        });
+
+        function renderDashboard() {
+            // Render Heading
+            document.getElementById('user-display-name').innerText = WagoData.settings.companyName;
+
+            // Render Stats
+            const statsGrid = document.getElementById('stats-grid');
+            const totalLeads = WagoData.leads.length;
+            const newLeadsToday = WagoData.leads.filter(l => l.date && l.date.includes('Today')).length;
+
+            const stats = [
+                { label: 'Total Leads', value: totalLeads.toLocaleString(), trend: WagoData.stats.leadsTrend, icon: 'groups', color: 'text-blue-500' },
+                { label: 'New Leads', value: newLeadsToday, trend: WagoData.stats.newLeadsTrend, icon: 'person_add', color: 'text-orange-500' },
+                { label: 'Active Tasks', value: WagoData.tasks.length, trend: 'Updated', icon: 'list_alt', color: 'text-purple-500' }
+            ];
+
+            statsGrid.innerHTML = stats.map(stat => `
+                <div class="premium-card p-8 group hover:border-primary/30 transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 size-24 bg-slate-50 dark:bg-slate-800/50 rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
+                    <div class="flex items-start justify-between relative z-10">
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">${stat.label}</p>
+                            <h4 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">${stat.value}</h4>
+                            <div class="flex items-center gap-1.5 mt-2">
+                                <span class="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded-full">${stat.trend}</span>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">This Month</span>
+                            </div>
+                        </div>
+                        <div class="size-12 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${stat.color} shadow-sm">
+                            <span class="material-symbols-outlined text-2xl">${stat.icon}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Activity
+            const activityFeed = document.getElementById('activity-feed');
+            activityFeed.innerHTML = WagoData.activities.map(activity => `
+                <div class="flex gap-4 group">
+                    <div class="relative">
+                        <div class="size-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-500 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-xl">${activity.icon || (activity.status === 'success' ? 'payments' : 'person_add')}</span>
+                        </div>
+                        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-slate-50 dark:bg-slate-800 group-last:hidden"></div>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-slate-700 dark:text-slate-200">${activity.name} <span class="font-normal text-slate-500">${activity.action}</span></p>
+                        <p class="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">${activity.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+
+</html>

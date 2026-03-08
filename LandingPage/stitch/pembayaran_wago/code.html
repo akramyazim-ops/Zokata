@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="min-h-screen flex flex-col">
+<!-- Top Nav Bar -->
+<header class="w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 lg:px-20 py-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="text-primary">
+<svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight">wago</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Bantuan</a>
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden border border-slate-300 dark:border-slate-600">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+</header>
+<main class="flex-grow flex flex-col lg:flex-row max-w-7xl mx-auto w-full px-6 lg:px-20 py-12 gap-12">
+<!-- Left Column: Payment Details -->
+<div class="flex-1 space-y-10">
+<div>
+<a class="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 mb-6 transition-colors" href="#">
+<span class="material-symbols-outlined text-base">arrow_back</span>
+                    Kembali ke Pelan
+                </a>
+<h1 class="text-3xl font-extrabold tracking-tight">Daftar Keluar</h1>
+</div>
+<!-- Billing Information Section -->
+<section class="space-y-6">
+<div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+<h2 class="text-lg font-bold">Maklumat Pengebilan</h2>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Nama Penuh</label>
+<input class="rounded-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 focus:ring-primary focus:border-primary transition-all" placeholder="Contoh: Ahmad Daniel" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Alamat Emel</label>
+<input class="rounded-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 focus:ring-primary focus:border-primary transition-all" placeholder="ahmad@email.com" type="email"/>
+</div>
+</div>
+</section>
+<!-- Payment Method Section -->
+<section class="space-y-6">
+<div class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+<span class="material-symbols-outlined text-primary">payments</span>
+<h2 class="text-lg font-bold">Kaedah Pembayaran</h2>
+</div>
+<div class="flex gap-4">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer sr-only" name="payment_method" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 border rounded-xl border-slate-200 dark:border-slate-800 peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined mb-2 text-slate-600 dark:text-slate-400">credit_card</span>
+<span class="text-sm font-semibold">Kad Kredit/Debit</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="payment_method" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 border rounded-xl border-slate-200 dark:border-slate-800 peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<span class="material-symbols-outlined mb-2 text-slate-600 dark:text-slate-400">account_balance</span>
+<span class="text-sm font-semibold">FPX Online Banking</span>
+</div>
+</label>
+</div>
+<div class="space-y-4 pt-2">
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Nombor Kad</label>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 focus:ring-primary focus:border-primary transition-all pr-10" placeholder="0000 0000 0000 0000" type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">Tarikh Luput</label>
+<input class="rounded-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 focus:ring-primary focus:border-primary transition-all" placeholder="MM/YY" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-slate-700 dark:text-slate-300">CVC</label>
+<input class="rounded-lg border-slate-200 dark:border-slate-800 dark:bg-slate-900 focus:ring-primary focus:border-primary transition-all" placeholder="123" type="text"/>
+</div>
+</div>
+</div>
+</section>
+<button class="w-full bg-primary hover:bg-opacity-90 text-slate-900 font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                Bayar Sekarang
+                <span class="material-symbols-outlined">lock</span>
+</button>
+<p class="text-center text-xs text-slate-500">
+                Pembayaran anda dilindungi dengan enkripsi SSL 256-bit.
+            </p>
+</div>
+<!-- Right Column: Order Summary -->
+<div class="lg:w-[400px]">
+<div class="sticky top-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 space-y-6 shadow-sm">
+<h3 class="text-xl font-bold border-b border-slate-100 dark:border-slate-800 pb-4">Ringkasan Pesanan</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Pelan Pertumbuhan</p>
+<p class="text-sm text-slate-500 italic">Growth Plan (Bulanan)</p>
+</div>
+<p class="font-semibold">RM129.00</p>
+</div>
+<div class="space-y-2 border-t border-slate-100 dark:border-slate-800 pt-4">
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+<span>Subjumlah</span>
+<span>RM129.00</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+<span>Cukai Perkhidmatan (6%)</span>
+<span>RM7.74</span>
+</div>
+</div>
+<div class="flex justify-between items-center border-t border-slate-100 dark:border-slate-800 pt-4">
+<span class="text-lg font-bold">Jumlah Keseluruhan</span>
+<div class="text-right">
+<span class="text-2xl font-black text-primary">RM136.74</span>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Dibayar Sekali</p>
+</div>
+</div>
+</div>
+<!-- Feature list in summary -->
+<div class="bg-primary/5 rounded-xl p-4 space-y-3">
+<p class="text-xs font-bold text-primary uppercase tracking-wider">Termasuk dalam pelan:</p>
+<ul class="text-sm space-y-2">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Akses Dashboard Premium</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Laporan Mingguan Automatik</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Sokongan 24/7 Prioriti</span>
+</li>
+</ul>
+</div>
+<div class="flex items-center gap-4 justify-center opacity-40 grayscale pt-4">
+<img alt="Visa Logo" data-alt="Visa credit card logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjOBztAhLsda1xLmFlOQ5nc_q9xfu8jLFvNYsgWsduO8NHnYOiRY2zzvIfRVA21EOhupWc1R655vil6--mooRWMcs9y2Ja3k-s9L8MOLTnbEU-KqyG9Wd9HSzeNcrxyDUaeMkW3G_7Txg1RfsOv6shyI06wCUu936Is202hQL1R7Y2-NqxL9DoJHm9jI-VBlb7jxRXMrXy8ysE_opg0uDgFI9eSWEQA_vFm1Ok19Je37bpVkpLaySeM1qqobd-ZqguhM1pLeCuuJmG"/>
+<img alt="Mastercard Logo" data-alt="Mastercard credit card logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAImRRjMTi_QpJ3FHVaD6yQ6qT40fadIsqEb7ruiAnlBgWMwcbvlOBuSBl8geM42SHlscQMgQKvd7ooluR7jzb9AxHAVKMC49MwpbjGH0hoq4ZIYhXyx3XwiSrBXg9w4c7WNbbZn1HTKBX5oq-3lxoGL1tR4z40Q7H7dHuDUcyX91YpQgdifgSHxEUZYJeksayeAFnO-iPlDusdyYc4fFjek66UZ0PN8X_qxTAZ6tXt5wKdPGdjIWkT3YE581zr6GbtZJOn8v4nXCKn"/>
+<img alt="FPX Logo" data-alt="FPX payment gateway logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeknvDIjxi2TghY_kjQKaN5LfYrTginBZ7fujgH2ACU_rfo9jdeCs-IAo5k1Y9WVZfseLxKxevI8LuMN-Gw7_S3GV6XGuxterYzBhLAIVFpaY-v91ghzvsiLcfV60LLsDRLui33yf753x2g5snKu-cPcMw7TXEq3G4ZJ39Wx9hh9m7H3fUhDsDiK0QDVLl_1w16ES9EvQu1WRAkRgnhiq8_fqktrb0lrv719JhtsyFpM9FFG-ip2b-3MIZhcYd24O78fylFXT_-s5i"/>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-6 text-center border-t border-slate-200 dark:border-slate-800 text-slate-500 text-sm">
+<p>© 2024 wago. Hak Cipta Terpelihara. <a class="underline hover:text-primary" href="#">Terma Penggunaan</a> &amp; <a class="underline hover:text-primary" href="#">Privasi</a></p>
+</footer>
+</div>
+</body></html>

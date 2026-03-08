@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Wago - Daftar Akaun Baru</title>
+</head>
+<body class="bg-white font-display text-slate-900">
+<div class="relative flex min-h-screen flex-col items-center justify-center p-6 sm:p-12">
+<!-- Logo Header -->
+<header class="absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-8 md:px-12">
+<div class="flex items-center gap-2">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900">wago</h2>
+</div>
+<div class="hidden sm:block">
+<span class="text-sm text-slate-500">Sudah mempunyai akaun?</span>
+<a class="ml-2 text-sm font-semibold text-primary hover:underline" href="#">Log Masuk</a>
+</div>
+</header>
+<!-- Signup Form Container -->
+<main class="w-full max-w-md">
+<div class="mb-10 text-center sm:text-left">
+<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-3">Daftar akaun wago anda</h1>
+<p class="text-lg text-slate-500 font-medium">Percuma 14 hari, tiada kad kredit diperlukan.</p>
+</div>
+<form class="space-y-5">
+<!-- Full Name -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-slate-700 ml-1">Nama Penuh</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Masukkan nama penuh anda" type="text"/>
+</div>
+</div>
+<!-- Business Name -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-slate-700 ml-1">Nama Perniagaan</label>
+<input class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Contoh: Wago Sdn Bhd" type="text"/>
+</div>
+<!-- Email Address -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-slate-700 ml-1">Alamat Emel</label>
+<input class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="nama@syarikat.com" type="email"/>
+</div>
+<!-- Password -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-semibold text-slate-700 ml-1">Kata Laluan</label>
+<div class="relative group">
+<input class="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Minimum 8 aksara" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+<!-- Terms & Conditions -->
+<div class="flex items-start gap-3 px-1 py-2">
+<input class="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary" id="terms" type="checkbox"/>
+<label class="text-sm text-slate-500 leading-relaxed" for="terms">
+                        Dengan mendaftar, anda bersetuju dengan <a class="text-slate-900 underline underline-offset-4 font-medium" href="#">Terma Perkhidmatan</a> dan <a class="text-slate-900 underline underline-offset-4 font-medium" href="#">Dasar Privasi</a> kami.
+                    </label>
+</div>
+<!-- Primary Button -->
+<button class="w-full rounded-xl bg-primary px-6 py-4 text-center text-base font-bold text-slate-900 shadow-lg shadow-primary/20 hover:bg-primary/90 active:scale-[0.98] transition-all" type="submit">
+                    Daftar Sekarang
+                </button>
+</form>
+<!-- Mobile Login Link -->
+<div class="mt-8 text-center sm:hidden">
+<span class="text-sm text-slate-500">Sudah mempunyai akaun?</span>
+<a class="ml-1 text-sm font-bold text-primary" href="#">Log Masuk</a>
+</div>
+<!-- Trust Badge / Divider -->
+<div class="mt-12 flex flex-col items-center gap-6">
+<div class="flex items-center gap-4 w-full">
+<div class="h-[1px] grow bg-slate-100"></div>
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Dipercayai Oleh</span>
+<div class="h-[1px] grow bg-slate-100"></div>
+</div>
+<div class="flex flex-wrap justify-center gap-8 opacity-40 grayscale">
+<div class="h-6 w-20 bg-slate-300 rounded-md"></div>
+<div class="h-6 w-24 bg-slate-300 rounded-md"></div>
+<div class="h-6 w-20 bg-slate-300 rounded-md"></div>
+</div>
+</div>
+</main>
+<!-- Decorative Background Elements -->
+<div class="fixed -bottom-24 -right-24 h-96 w-96 rounded-full bg-primary/5 blur-3xl -z-10"></div>
+<div class="fixed -top-24 -left-24 h-96 w-96 rounded-full bg-primary/5 blur-3xl -z-10"></div>
+</div>
+</body></html>

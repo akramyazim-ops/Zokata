@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wago CRM - Pengurusan Automasi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">Wago CRM</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs mt-1">Pengurusan CRM SME</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Papan Pemuka</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Kenalan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">magic_button</span>
+<span class="text-sm font-bold">Automasi</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Laporan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Tetapan</span>
+</a>
+</nav>
+</div>
+<button class="flex items-center justify-center gap-2 w-full bg-primary text-slate-900 py-2.5 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">help</span>
+            Bantuan
+        </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="text-sm font-medium">Kembali ke Papan Pemuka</span>
+</button>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-slate-900 px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                    Tambah Peraturan
+                </button>
+<div class="h-8 w-px bg-slate-200 dark:border-slate-700"></div>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="User profile picture of business owner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7Omz86zkAHhljqYtAErOEETEr3Nh4pBDZm9Eo2qo6f_7AKKX1N9-jtFc5YfCKC9zMc5l8LkX21_2B37qP1ggdreHxJ3tTVS_FcXElvv2ztLqk28xgEWIm3cCyiZis48DJl0Yc7nC2Z5IcGyYyTObcxCQkYRor0_Grf3ljCRL3abdB6H397VZAnl1_aYVDcQ8gnQEronIWASh4KICouDzuayQUEMjOp6S9pH4zwEWrQpR8pthJsOq_eLLjUpgd06nL2OJXSi5yJGom"/>
+</div>
+</div>
+</header>
+<!-- Content Body -->
+<div class="p-8 max-w-6xl mx-auto w-full">
+<div class="mb-8">
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Pengurusan Automasi</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-2">Urus balasan automatik dan peringatan susulan anda dengan mudah.</p>
+</div>
+<!-- Tabs -->
+<div class="flex gap-8 border-b border-slate-200 dark:border-slate-800 mb-8">
+<button class="pb-4 text-sm font-bold border-b-2 border-primary text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">chat_bubble</span>
+                    Auto-Reply
+                </button>
+<button class="pb-4 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">schedule</span>
+                    Peringatan Susulan
+                </button>
+</div>
+<!-- Automation Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Card 1: New Message Trigger -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">mail</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Trigger: Mesej Baru</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Balasan untuk pelanggan baru</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-sm text-slate-600 dark:text-slate-300 italic">
+                            "Hai! Terima kasih kerana menghubungi kami. Kami akan membalas mesej anda sebentar lagi."
+                        </div>
+<div class="flex items-center justify-between text-xs font-medium mt-4">
+<span class="text-slate-400">Terakhir digunakan: 2 jam lepas</span>
+<button class="text-primary hover:underline">Edit Peraturan</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Business Hours -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined text-2xl">bedtime</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Luar Waktu Kerja</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Balasan automatik malam/cuti</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-sm text-slate-600 dark:text-slate-300 italic">
+                            "Maaf, kami sedang bercuti. Sila tinggalkan pesanan anda dan kami akan hubungi anda esok pagi."
+                        </div>
+<div class="flex items-center justify-between text-xs font-medium mt-4">
+<span class="text-slate-400">Jadual: Isnin-Jumaat (8pm - 8am)</span>
+<button class="text-primary hover:underline">Edit Peraturan</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Follow up -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-2xl">history</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Jadual Automatik (7 Hari)</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Peringatan susulan untuk prospek</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-sm text-slate-400 dark:text-slate-500 italic">
+                            Tiada mesej ditetapkan. Aktifkan untuk mula menghantar susulan.
+                        </div>
+<div class="flex items-center justify-between text-xs font-medium mt-4">
+<span class="text-red-500 font-bold uppercase tracking-wider">Tidak Aktif</span>
+<button class="text-primary hover:underline">Sediakan Sekarang</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Feedback trigger -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">thumb_up</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Selepas Pembelian</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Minta maklum balas pelanggan</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-sm text-slate-600 dark:text-slate-300 italic">
+                            "Hai! Kami harap anda berpuas hati dengan pembelian anda. Boleh kongsikan maklum balas?"
+                        </div>
+<div class="flex items-center justify-between text-xs font-medium mt-4">
+<span class="text-slate-400">Dihantar 24 jam selepas status 'Selesai'</span>
+<button class="text-primary hover:underline">Edit Peraturan</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / New Rule Prompt -->
+<div class="mt-12 p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+</div>
+<h4 class="text-lg font-bold text-slate-900 dark:text-white">Ingin jimat lebih banyak masa?</h4>
+<p class="text-slate-500 dark:text-slate-400 max-w-sm mt-2">Cipta peraturan baru untuk menguruskan komunikasi pelanggan anda secara automatik 24/7.</p>
+<button class="mt-6 bg-primary/20 text-slate-900 dark:text-primary px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/30 transition-colors">
+                    + Bina Automasi Kustom
+                </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

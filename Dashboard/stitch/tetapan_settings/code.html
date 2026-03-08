@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Tetapan - wago CRM</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div>
+<h1 class="text-base font-bold leading-tight">wago CRM</h1>
+<p class="text-xs text-slate-500">Pengurusan Pelanggan</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Papan Pemuka</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Tetapan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-sm font-medium">Mesej WhatsApp</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Pasukan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Bil &amp; Langganan</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img alt="User Profile" data-alt="Avatar of the system administrator profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3KXjUwe496bPiwjkGU6OmcL6gkIk5RmDN8sg_ZyHXL4_digguNfgcleKKaLEWTMqXIqbXE5-yWmAHPKwz6jlTTMmVx1PpndADLo-FwK70P_rWps_45Ewkbaosrf26Pxo8imxozgQDiUqMrpLtIHUowH2dtEJtrIGeXPiKL5EU1n8GVP6nErhzUGy4VIr6gwOoibYOn83qhhcY4Bsy--u4DOE7qft-Q2mtyWnFCEJk6zDzRLU8A7EMJo6EtJHFL40ElaNpMcgitzI9"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium truncate">Ahmad Admin</p>
+<p class="text-xs text-slate-500 truncate">Pelan Pro</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-sm">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-10 flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Kembali ke Dashboard
+                </a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 max-w-5xl w-full mx-auto">
+<div class="mb-8">
+<h2 class="text-3xl font-bold tracking-tight">Tetapan Akaun</h2>
+<p class="text-slate-500 mt-1">Urus profil syarikat, integrasi WhatsApp, dan konfigurasi sistem anda.</p>
+</div>
+<!-- Tabs -->
+<div class="border-b border-slate-200 dark:border-slate-800 mb-8 overflow-x-auto">
+<nav class="flex gap-8 whitespace-nowrap">
+<a class="border-b-2 border-primary text-primary pb-4 text-sm font-bold" href="#">Profil Syarikat</a>
+<a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-4 text-sm font-medium" href="#">Integrasi WhatsApp</a>
+<a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-4 text-sm font-medium" href="#">Pengurusan Pasukan</a>
+<a class="border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-4 text-sm font-medium" href="#">Bil &amp; Langganan</a>
+</nav>
+</div>
+<!-- Form Sections -->
+<div class="grid grid-cols-1 gap-8">
+<!-- Company Profile Card -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h3 class="text-lg font-bold">Maklumat Syarikat</h3>
+<p class="text-sm text-slate-500">Kemaskini butiran rasmi perniagaan anda.</p>
+</div>
+<div class="p-6 space-y-6">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex-1 space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Nama Syarikat</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary transition-all" type="text" value="Wago Global Sdn Bhd"/>
+</div>
+<div class="flex-1 space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">No. Pendaftaran (SSM)</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary transition-all" placeholder="Contoh: 202301234567" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Alamat Emel Rasmi</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary transition-all" type="email" value="hello@wago.my"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Alamat Pejabat</label>
+<textarea class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary transition-all" rows="3">No. 12, Level 3, Menara Tech, Cyberjaya, Selangor.</textarea>
+</div>
+<div class="pt-4 flex justify-end gap-3">
+<button class="px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Batal</button>
+<button class="px-6 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/90 shadow-sm transition-all">Simpan Perubahan</button>
+</div>
+</div>
+</section>
+<!-- Branding & Visuals Section -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800">
+<h3 class="text-lg font-bold">Penjenamaan &amp; Logo</h3>
+<p class="text-sm text-slate-500">Sesuaikan rupa sistem untuk jenama anda.</p>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-6">
+<div class="w-24 h-24 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700 relative overflow-hidden group">
+<span class="material-symbols-outlined text-3xl text-slate-400">image</span>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+<div class="space-y-1">
+<h4 class="text-sm font-bold">Logo Syarikat</h4>
+<p class="text-xs text-slate-500">Format PNG, JPG atau SVG. Maksimum 2MB.</p>
+<div class="pt-2">
+<button class="text-xs font-bold text-primary border border-primary/30 px-3 py-1 rounded-md hover:bg-primary/5 transition-colors">Muat Naik Logo</button>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Warna Tema Utama</label>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary border-2 border-white shadow-sm shrink-0"></div>
+<input class="flex-1 rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm" type="text" value="#25d466"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Zon Masa</label>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm focus:ring-primary transition-all">
+<option>(GMT+08:00) Kuala Lumpur, Singapore</option>
+<option>(GMT+08:00) Perth</option>
+<option>(GMT+09:00) Tokyo</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<!-- Security / Danger Zone -->
+<section class="border border-red-100 dark:border-red-900/30 rounded-xl overflow-hidden">
+<div class="bg-red-50 dark:bg-red-900/10 p-4 border-b border-red-100 dark:border-red-900/30">
+<h3 class="text-red-700 dark:text-red-400 font-bold text-sm uppercase tracking-wider">Zon Berbahaya</h3>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Nyahaktifkan Akaun</h4>
+<p class="text-sm text-slate-500">Tindakan ini akan memadam semua data pelanggan dan integrasi anda secara kekal.</p>
+</div>
+<button class="px-4 py-2 border border-red-200 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 text-sm font-bold rounded-lg transition-colors">Padam Akaun Syarikat</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer -->
+<footer class="p-8 mt-auto border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-xs text-slate-400">© 2024 wago CRM. Dibina dengan bangga di Malaysia.</p>
+</footer>
+</main>
+</div>
+</body></html>

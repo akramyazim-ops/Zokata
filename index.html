@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zokata - No. 1 WhatsApp CRM for Malaysian SMEs</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                        "neutral-custom": "#658671",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background-color: #122017;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 212, 102, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 212, 102, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-header {
+            background: rgba(18, 32, 23, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Float Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 2rem;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .marquee-content {
+            display: flex;
+            flex-shrink: 0;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 2rem;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dynamic Glow border */
+        .glow-border {
+            position: relative;
+        }
+
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(45deg, #25d466, transparent, #25d466);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-border:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 w-full glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                        <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                </div>
+                <nav class="hidden md:flex space-x-10">
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="#features">Features</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="#pricing">Pricing</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="showcase.html">Showcase</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="blog.html">Blog</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden sm:inline-flex text-sm font-bold text-slate-700 dark:text-slate-200 px-6 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">Login</a>
+                    <a href="signup.html" class="btn-primary" style="padding: 0.65rem 1.5rem;">
+                        Try for Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 hero-bg overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div
+                class="reveal active inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 backdrop-blur-md">
+                <span class="material-symbols-outlined text-primary text-sm">verified</span>
+                <span class="text-xs font-bold text-primary tracking-wide uppercase">Ideal for Malaysian SMEs</span>
+            </div>
+
+            <h1
+                class="reveal active text-6xl md:text-8xl font-black tracking-tighter text-white mb-8 max-w-5xl mx-auto leading-[1.05] drop-shadow-2xl">
+                WhatsApp Sales CRM for <span class="text-primary italic">Malaysian SMEs</span>
+            </h1>
+
+            <p class="reveal active text-lg md:text-2xl text-slate-300 font-medium mb-12 max-w-3xl mx-auto leading-relaxed"
+                style="transition-delay: 100ms;">
+                Track leads, automate follow-ups, and increase sales in one simple dashboard. Stop losing WhatsApp
+                customers today.
+            </p>
+
+            <div class="reveal active flex flex-col sm:flex-row gap-5 justify-center mb-28"
+                style="transition-delay: 200ms;">
+                <a href="signup.html"
+                    class="btn-primary text-lg font-bold px-12 py-5 rounded-2xl shadow-[0_0_40px_-10px_rgba(37,212,102,0.5)] hover:shadow-[0_0_60px_-10px_rgba(37,212,102,0.7)] hover:-translate-y-1 transition-all duration-300">
+                    Try for Free
+                </a>
+                <a href="#"
+                    class="premium-glass-card text-white text-lg font-bold px-12 py-5 rounded-2xl hover:bg-white/10 transition-all duration-300">
+                    Watch Demo
+                </a>
+            </div>
+
+            <!-- Product Mockup with Animation -->
+            <div class="reveal active relative max-w-6xl mx-auto" style="transition-delay: 300ms;">
+                <div
+                    class="absolute -inset-10 bg-gradient-to-t from-primary/30 to-transparent rounded-[3rem] blur-3xl opacity-50 pointer-events-none">
+                </div>
+                <div
+                    class="animate-float relative premium-glass-card rounded-[2.5rem] p-3 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.5)] border border-white/10">
+                    <div
+                        class="bg-slate-950 rounded-[2rem] overflow-hidden border border-white/5 relative flex justify-center items-center">
+                        <!-- Simulated reflection/glare -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none z-10 w-[200%] translate-x-[-50%]">
+                        </div>
+                        <img alt="Zokata Dashboard" class="w-full h-auto object-contain max-h-[80vh]"
+                            src="Dashboard/stitch/papan_pemuka_dashboard/screen.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom gradient fade into next section -->
+        <div
+            class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent z-20">
+        </div>
+    </section>
+
+    <!-- Infinite Marquee Section -->
+    <section
+        class="py-12 border-y border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm overflow-hidden relative z-30">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <!-- Group 1 -->
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">check_circle</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">Meta
+                        Official API</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">bolt</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">24/7 Auto
+                        Replies</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">sync</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">Real-time
+                        Sync</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">code_off</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">No Coding
+                        Required</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">security</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">End-to-End
+                        Secure</span></div>
+                <!-- Group 2 (Duplicate for seamless loop) -->
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">check_circle</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">Meta
+                        Official API</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">bolt</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">24/7 Auto
+                        Replies</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">sync</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">Real-time
+                        Sync</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">code_off</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">No Coding
+                        Required</span></div>
+                <div class="flex items-center gap-3"><span
+                        class="material-symbols-outlined text-primary">security</span><span
+                        class="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest text-sm">End-to-End
+                        Secure</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden" id="features">
+        <!-- Decorative Background Elements -->
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="reveal text-center max-w-3xl mx-auto mb-20">
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Core Features</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+                    Simplify Your Sales Process
+                </h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400">
+                    Everything you need to manage leads, reply faster, and close more deals directly from WhatsApp.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="reveal premium-glass-card p-10 rounded-[2rem] hover:-translate-y-2 transition-transform duration-500 relative overflow-hidden group bg-white dark:bg-slate-900"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl">chat</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">1-Click WhatsApp</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Reply to leads instantly without saving their numbers. Our direct integration saves you hours
+                        every week.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="reveal premium-glass-card p-10 rounded-[2rem] hover:-translate-y-2 transition-transform duration-500 relative overflow-hidden group bg-white dark:bg-slate-900"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
+                        <span class="material-symbols-outlined text-primary text-3xl">view_kanban</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Visual Pipeline</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        See exactly where every prospect is in your sales funnel. Drag and drop leads to update their
+                        status.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 bg-background-light dark:bg-slate-950" id="pricing">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center mb-20">
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Simple Pricing</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-5">Flexible Pricing
+                    Plans</h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Choose a plan that fits the
+                    scale of your business. <span class="text-primary font-bold">All plans include a 1-week free
+                        trial.</span></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- Basic Plan -->
+                <div class="reveal bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 border border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+                    style="transition-delay: 100ms;">
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-slate-400 mb-2 uppercase tracking-widest">Basic</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-black text-slate-900 dark:text-white">RM15</span>
+                            <span class="text-slate-500 dark:text-slate-400 font-medium">/ Month</span>
+                        </div>
+                        <p class="text-sm text-primary font-semibold mt-2">🎉 1-Week Free Trial</p>
+                    </div>
+                    <a href="checkout.html?plan=basic"
+                        class="w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-4 px-6 rounded-2xl mb-10 text-center transition-colors">
+                        Start Free Trial
+                    </a>
+                    <ul class="space-y-5 flex-grow">
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            WhatsApp Sync
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Max 100 Leads
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Basic Pipeline
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Manual Follow-up
+                        </li>
+                    </ul>
+                </div>
+                <!-- Growth Plan -->
+                <div class="reveal glow-border relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 border-2 border-primary flex flex-col h-full shadow-2xl shadow-primary/20 scale-105 z-10 hover:scale-[1.07] transition-transform duration-500"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-slate-900 text-[11px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-primary/30">
+                        Most Popular
+                    </div>
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-primary mb-2 uppercase tracking-widest">Growth</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-black text-slate-900 dark:text-white">RM30</span>
+                            <span class="text-slate-500 dark:text-slate-400 font-medium">/ Month</span>
+                        </div>
+                        <p class="text-sm text-primary font-semibold mt-2">🎉 1-Week Free Trial</p>
+                    </div>
+                    <a href="checkout.html?plan=growth"
+                        class="btn-primary w-full justify-center py-4 rounded-2xl mb-10 shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-shadow">
+                        Start Free Trial
+                    </a>
+                    <ul class="space-y-5 flex-grow">
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300 font-semibold">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            WhatsApp Sync
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300 font-semibold">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Unlimited Leads
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300 font-semibold">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Auto Reminder
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300 font-semibold">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Sales Dashboard
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300 font-semibold">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Advanced Pipeline
+                        </li>
+                    </ul>
+                </div>
+                <!-- Scale Plan -->
+                <div class="reveal bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 border border-slate-200 dark:border-slate-800 flex flex-col h-full shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+                    style="transition-delay: 300ms;">
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-slate-400 mb-2 uppercase tracking-widest">Scale</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-black text-slate-900 dark:text-white">RM59</span>
+                            <span class="text-slate-500 dark:text-slate-400 font-medium">/ Month</span>
+                        </div>
+                        <p class="text-sm text-primary font-semibold mt-2">🎉 1-Week Free Trial</p>
+                    </div>
+                    <a href="checkout.html?plan=scale"
+                        class="w-full bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 font-bold py-4 px-6 rounded-2xl mb-10 text-center transition-all">
+                        Start Free Trial
+                    </a>
+                    <ul class="space-y-5 flex-grow">
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            WhatsApp Sync
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Advanced Automation
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            API Integration
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Advanced Reporting
+                        </li>
+                        <li class="flex items-center gap-4 text-slate-600 dark:text-slate-300">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                            Priority Support
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                            <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                        </div>
+                        <span
+                            class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
+                        Helping Malaysian SMEs manage WhatsApp sales smarter and more efficiently.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-12 w-full md:w-auto">
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-black text-sm uppercase tracking-widest mb-6">
+                            Company</h4>
+                        <ul class="space-y-4">
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">About Us</a></li>
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-black text-sm uppercase tracking-widest mb-6">
+                            Product</h4>
+                        <ul class="space-y-4">
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Features</a></li>
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Pricing</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-black text-sm uppercase tracking-widest mb-6">
+                            Support</h4>
+                        <ul class="space-y-4">
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Contact Us</a></li>
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Help Center</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-black text-sm uppercase tracking-widest mb-6">
+                            Legal</h4>
+                        <ul class="space-y-4">
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Privacy Policy</a></li>
+                            <li><a class="text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors"
+                                    href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-10 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-400 dark:text-slate-500 text-sm font-medium">
+                    © 2024 Zokata. All Rights Reserved.
+                </p>
+                <div class="flex gap-8">
+                    <a class="text-slate-400 hover:text-primary transition-all hover:scale-110" href="#">
+                        <span class="material-symbols-outlined text-2xl">social_leaderboard</span>
+                    </a>
+                    <a class="text-slate-400 hover:text-primary transition-all hover:scale-110" href="#">
+                        <span class="material-symbols-outlined text-2xl">alternate_email</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Scroll Reveal Animation Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once revealed
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

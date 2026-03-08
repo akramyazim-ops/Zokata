@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Wago CRM - Dashboard</title>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Side Navigation -->
+<aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary size-10 rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">account_tree</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Wago CRM</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Sistem Jualan Anda</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm">Leads</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">filter_alt</span>
+<span class="text-sm">Pipeline</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-sm">Automation</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-800 rounded-xl">
+<div class="size-10 rounded-full bg-slate-200 overflow-hidden" data-alt="User profile avatar photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6YVRsERl9aPXJZinqxHZ84U7SrlglmjHDA4HYncgQ7YW-0T7hGdEN6BlGEYRDIWQ1k7sHf184QaVtKLFQYcj_-dKsUKf1jRo7SgKkyI0IaJFqeJfsC72aVD-wodCn2OGIU7QPIXmoY-7V1o2VzB_J6zMF1kRaJP_67byqwI7E9J56YCCxwRblINNTPL1zCQZ-Wgvf04pY4wE3J2xDg8swHOEu4nlO53Ry6a-sYeP_8WZOJlSmev5VjqPAMXPOo31mEtLYBaAQNEZp')"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">Amir Rahman</p>
+<p class="text-xs text-slate-500 truncate">Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Top Bar -->
+<header class="h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative max-w-md w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/50" placeholder="Cari leads atau tugasan..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:border-slate-700 mx-2"></div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Lead Baru
+                    </button>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- Welcome Section -->
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white">Selamat Datang, Amir! 👋</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Ini adalah ringkasan prestasi jualan anda hari ini.</p>
+</div>
+<!-- Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400">group</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Jumlah Lead</p>
+<h3 class="text-3xl font-bold mt-1">1,254</h3>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">+8%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Jumlah Jualan</p>
+<h3 class="text-3xl font-bold mt-1">RM 45,230</h3>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400">person_add</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">+5%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Lead Baru (Hari Ini)</p>
+<h3 class="text-3xl font-bold mt-1">42</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Sales Pipeline Chart Placeholder -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-lg font-bold">Corong Jualan (Sales Pipeline)</h3>
+<p class="text-sm text-slate-500">Status prospek dalam kitaran jualan</p>
+</div>
+<select class="bg-slate-100 dark:bg-slate-800 border-none text-xs rounded-lg focus:ring-primary/30">
+<option>30 Hari Terakhir</option>
+<option>7 Hari Terakhir</option>
+</select>
+</div>
+<div class="space-y-4">
+<div class="group">
+<div class="flex justify-between text-sm mb-2">
+<span class="font-medium text-slate-700 dark:text-slate-300">Hubungi (Contacted)</span>
+<span class="text-slate-500">450 Lead</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-8 rounded-lg overflow-hidden">
+<div class="bg-primary/40 h-full w-[100%] transition-all"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-sm mb-2">
+<span class="font-medium text-slate-700 dark:text-slate-300">Kelayakan (Qualified)</span>
+<span class="text-slate-500">210 Lead</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-8 rounded-lg overflow-hidden">
+<div class="bg-primary/60 h-full w-[46%] transition-all"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-sm mb-2">
+<span class="font-medium text-slate-700 dark:text-slate-300">Cadangan (Proposal)</span>
+<span class="text-slate-500">85 Lead</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-8 rounded-lg overflow-hidden">
+<div class="bg-primary/80 h-full w-[18%] transition-all"></div>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between text-sm mb-2">
+<span class="font-medium text-slate-700 dark:text-slate-300">Tutup (Closed)</span>
+<span class="text-slate-500">32 Lead</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-8 rounded-lg overflow-hidden">
+<div class="bg-primary h-full w-[7%] transition-all"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex gap-4 text-xs">
+<div class="flex items-center gap-1.5">
+<div class="size-2 rounded-full bg-primary/40"></div>
+<span>Awareness</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2 rounded-full bg-primary/70"></div>
+<span>Consideration</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2 rounded-full bg-primary"></div>
+<span>Conversion</span>
+</div>
+</div>
+</div>
+<!-- Tasks List -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold">Tugasan Hari Ini</h3>
+<span class="text-xs bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded font-bold">4 Tertunggak</span>
+</div>
+<div class="space-y-4 flex-1 overflow-y-auto">
+<!-- Task Item -->
+<div class="flex items-start gap-4 p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg group transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Follow-up En. Ahmad</p>
+<p class="text-xs text-slate-500 mb-2">Mengenai sebut harga pakej enterprise</p>
+<div class="flex items-center gap-2">
+<span class="text-[10px] uppercase tracking-wider font-bold text-orange-600 bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded">Penting</span>
+<span class="text-[10px] text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 10:30 AM
+                                        </span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-4 p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg group transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Hantar Invoice Cik Siti</p>
+<p class="text-xs text-slate-500 mb-2">Bayaran deposit untuk projek bulan depan</p>
+<div class="flex items-center gap-2">
+<span class="text-[10px] uppercase tracking-wider font-bold text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded">Kewangan</span>
+<span class="text-[10px] text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 02:00 PM
+                                        </span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-4 p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg group transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+<div class="mt-1">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-white">Demo Sistem - TechCorp</p>
+<p class="text-xs text-slate-500 mb-2">Video call bersama pasukan IT</p>
+<div class="flex items-center gap-2">
+<span class="text-[10px] uppercase tracking-wider font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">Meeting</span>
+<span class="text-[10px] text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">schedule</span> 04:30 PM
+                                        </span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border-2 border-dashed border-slate-200 dark:border-slate-800 text-slate-500 text-sm font-bold rounded-lg hover:border-primary/50 hover:text-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                            Tambah Tugasan
+                        </button>
+</div>
+</div>
+<!-- Recent Activities Section (Optional Enhancement) -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-lg font-bold mb-6">Aktiviti Terkini</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-slate-500 text-sm border-b border-slate-100 dark:border-slate-800">
+<th class="pb-4 font-medium">Pelanggan</th>
+<th class="pb-4 font-medium">Aktiviti</th>
+<th class="pb-4 font-medium">Masa</th>
+<th class="pb-4 font-medium text-right">Tindakan</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="group">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 text-xs font-bold">HA</div>
+<span class="text-sm font-medium">Hafiz Azman</span>
+</div>
+</td>
+<td class="py-4 text-sm">Pendaftaran Lead Baru melalui Facebook</td>
+<td class="py-4 text-sm text-slate-500">2 minit yang lalu</td>
+<td class="py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Lihat Profil</button>
+</td>
+</tr>
+<tr class="group">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 text-xs font-bold">ML</div>
+<span class="text-sm font-medium">Mariam Laila</span>
+</div>
+</td>
+<td class="py-4 text-sm text-primary">Jualan Berjaya (RM 1,200)</td>
+<td class="py-4 text-sm text-slate-500">45 minit yang lalu</td>
+<td class="py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Lihat Profil</button>
+</td>
+</tr>
+<tr class="group">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 text-xs font-bold">KK</div>
+<span class="text-sm font-medium">Kevin Khoo</span>
+</div>
+</td>
+<td class="py-4 text-sm">Lead dipindahkan ke fasa 'Proposal'</td>
+<td class="py-4 text-sm text-slate-500">2 jam yang lalu</td>
+<td class="py-4 text-right">
+<button class="text-primary hover:underline text-sm font-bold">Lihat Profil</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

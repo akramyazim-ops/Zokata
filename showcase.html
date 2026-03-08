@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zokata - Feature Showcase</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                        "neutral-custom": "#658671",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #122017;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 212, 102, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 212, 102, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .glass-header {
+            background: rgba(18, 32, 23, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Slider Specific Styles */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2rem;
+        }
+
+        .slides-wrapper {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2rem;
+        }
+    </style>
+</head>
+
+<body class="antialiased font-display relative overflow-x-hidden dark">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 w-full glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                        <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-white">Zokata</span>
+                </a>
+                <nav class="hidden md:flex space-x-10">
+                    <a class="text-sm font-bold text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#features">Features</a>
+                    <a class="text-sm font-bold text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#pricing">Pricing</a>
+                    <a class="text-sm font-bold text-primary transition-colors" href="showcase.html">Showcase</a>
+                    <a class="text-sm font-bold text-slate-300 hover:text-primary transition-colors"
+                        href="blog.html">Blog</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden sm:inline-flex text-sm font-bold text-slate-200 px-6 py-2.5 hover:bg-slate-800 rounded-xl transition-all">Login</a>
+                    <a href="signup.html" class="btn-primary" style="padding: 0.65rem 1.5rem;">
+                        Try for Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center">
+
+        <div class="text-center mb-16 reveal active">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight drop-shadow-lg">
+                Experience <span class="text-primary italic">Zokata</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                Swipe through our premium interactive showcase below to see the powerful features driving 10x ROI for
+                Malaysian businesses.
+            </p>
+        </div>
+
+        <!-- Slider Component -->
+        <div class="w-full max-w-6xl relative reveal active premium-glass-card p-4 rounded-[2.5rem]"
+            style="transition-delay: 200ms;">
+
+            <div class="slider-container bg-slate-950" style="height: 480px;">
+                <div class="slides-wrapper" id="slidesWrapper">
+                    <!-- Slide 1 -->
+                    <div class="slide">
+                        <img src="Dashboard/stitch/papan_pemuka_dashboard/screen.png" alt="Dashboard Overview">
+                        <div
+                            class="absolute bottom-8 left-8 right-8 bg-slate-900/80 backdrop-blur border border-white/10 p-6 rounded-2xl opacity-0 translate-y-4 transition-all duration-500 slide-caption">
+                            <h3 class="text-2xl font-bold text-white mb-2">Centralized Dashboard</h3>
+                            <p class="text-slate-300">Get a bird's-eye view of your entire sales pipeline and team
+                                performance.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide">
+                        <img src="Dashboard/stitch/automasi_automation/screen.png" alt="Automation Features">
+                        <div
+                            class="absolute bottom-8 left-8 right-8 bg-slate-900/80 backdrop-blur border border-white/10 p-6 rounded-2xl opacity-0 translate-y-4 transition-all duration-500 slide-caption">
+                            <h3 class="text-2xl font-bold text-white mb-2">Smart Automation</h3>
+                            <p class="text-slate-300">Set up triggers and follow-ups so you never lose a warm lead
+                                again.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide">
+                        <img src="Dashboard/stitch/corong_jualan_pipeline/screen.png" alt="Lead Analytics">
+                        <div
+                            class="absolute bottom-8 left-8 right-8 bg-slate-900/80 backdrop-blur border border-white/10 p-6 rounded-2xl opacity-0 translate-y-4 transition-all duration-500 slide-caption">
+                            <h3 class="text-2xl font-bold text-white mb-2">Sales Pipeline</h3>
+                            <p class="text-slate-300">Visualize and manage your entire sales funnel from first contact
+                                to closed deal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button id="prevBtn"
+                class="absolute left-8 top-1/2 -translate-y-1/2 size-12 bg-white/10 hover:bg-primary text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur transition-all border border-white/20 hover:scale-110 z-20">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            <button id="nextBtn"
+                class="absolute right-8 top-1/2 -translate-y-1/2 size-12 bg-white/10 hover:bg-primary text-white hover:text-slate-900 rounded-full flex items-center justify-center backdrop-blur transition-all border border-white/20 hover:scale-110 z-20">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+
+            <!-- Dots -->
+            <div class="absolute bottom-[-3rem] left-1/2 -translate-x-1/2 flex gap-3 z-20" id="dotsContainer">
+                <!-- Dots injected via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-dark border-t border-slate-800 py-24 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                            <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-3xl font-extrabold tracking-tight text-white">Zokata</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-sm">Empowering Malaysian SMEs with
+                        the smartest WhatsApp CRM designed to close deals faster and manage leads effortlessly.</p>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-12 w-full md:w-auto flex-grow justify-end">
+                    <div>
+                        <h4 class="text-white font-bold mb-6 tracking-wide">Product</h4>
+                        <ul class="space-y-4">
+                            <li><a href="index.html#features"
+                                    class="text-slate-400 hover:text-primary text-sm transition-colors">Features</a>
+                            </li>
+                            <li><a href="index.html#pricing"
+                                    class="text-slate-400 hover:text-primary text-sm transition-colors">Pricing</a></li>
+                            <li><a href="showcase.html"
+                                    class="text-primary text-sm font-medium transition-colors">Showcase</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-6 tracking-wide">Resources</h4>
+                        <ul class="space-y-4">
+                            <li><a href="blog.html"
+                                    class="text-slate-400 hover:text-primary text-sm transition-colors">Blog</a></li>
+                            <li><a href="#" class="text-slate-400 hover:text-primary text-sm transition-colors">Help
+                                    Center</a></li>
+                            <li><a href="#" class="text-slate-400 hover:text-primary text-sm transition-colors">API
+                                    Docs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm">© 2026 Zokata Global. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Animation (for initial load)
+            const revealElements = document.querySelectorAll('.reveal');
+            setTimeout(() => {
+                revealElements.forEach(el => el.classList.add('active'));
+            }, 100);
+
+            // Slider Logic
+            const slidesWrapper = document.getElementById('slidesWrapper');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dotsContainer');
+
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            // Generate dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = index === 0 ? 'size-3 rounded-full transition-all duration-300 bg-primary w-8' : 'size-3 rounded-full transition-all duration-300 bg-white/30 hover:bg-white/60';
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('button');
+
+            function updateSlider() {
+                // Move slides
+                slidesWrapper.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+                // Update dots
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.className = 'size-3 rounded-full transition-all duration-300 bg-primary w-8';
+                    } else {
+                        dot.className = 'size-3 rounded-full transition-all duration-300 bg-white/30 hover:bg-white/60';
+                    }
+                });
+
+                // Animate Captions
+                document.querySelectorAll('.slide-caption').forEach(cap => {
+                    cap.classList.remove('opacity-100', 'translate-y-0');
+                    cap.classList.add('opacity-0', 'translate-y-4');
+                });
+
+                setTimeout(() => {
+                    const activeCaption = slides[currentIndex].querySelector('.slide-caption');
+                    if (activeCaption) {
+                        activeCaption.classList.remove('opacity-0', 'translate-y-4');
+                        activeCaption.classList.add('opacity-100', 'translate-y-0');
+                    }
+                }, 300); // Wait for slide transition
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateSlider();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider();
+            });
+
+            // Initial Caption Animation
+            updateSlider();
+
+            // Auto-advance
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider();
+            }, 6000);
+        });
+    </script>
+</body>
+
+</html>

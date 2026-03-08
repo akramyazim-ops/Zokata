@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zokata - Article</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                        "neutral-custom": "#658671",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-header {
+            background: rgba(18, 32, 23, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-display relative overflow-x-hidden">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 w-full glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                        <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                </a>
+                <nav class="hidden md:flex space-x-10">
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#features">Features</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#pricing">Pricing</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="#">About Us</a>
+                    <a class="text-sm font-bold text-primary transition-colors" href="blog.html">Blog</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden sm:inline-flex text-sm font-bold text-slate-700 dark:text-slate-200 px-6 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">Login</a>
+                    <a href="signup.html" class="btn-primary" style="padding: 0.65rem 1.5rem;">
+                        Try for Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <a href="blog.html"
+            class="inline-flex items-center text-primary font-bold hover:underline mb-8 transition-transform hover:-translate-x-1">
+            <span class="material-symbols-outlined text-sm mr-1">arrow_back</span> Back to Blog
+        </a>
+
+        <div class="reveal active flex items-center gap-3 mb-6">
+            <span
+                class="text-xs font-bold text-primary uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full">Guide</span>
+            <span class="text-sm text-slate-500 dark:text-slate-400">March 9, 2026</span>
+        </div>
+
+        <h1 class="reveal active text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-8 leading-tight tracking-tight shadow-sm"
+            style="transition-delay: 100ms;">
+            The Ultimate Guide to WhatsApp Business API
+        </h1>
+
+        <div class="reveal active aspect-[21/9] bg-slate-200 dark:bg-slate-800 w-full overflow-hidden rounded-[2rem] mb-12 shadow-2xl shadow-primary/10 border border-slate-200 dark:border-slate-800"
+            style="transition-delay: 200ms;">
+            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
+                alt="WhatsApp Business Strategy" class="w-full h-full object-cover">
+        </div>
+
+        <article class="reveal active max-w-3xl mx-auto text-lg leading-relaxed text-slate-600 dark:text-slate-400"
+            style="transition-delay: 300ms;">
+            <p class="text-xl md:text-2xl text-slate-800 dark:text-slate-200 font-medium mb-10 leading-relaxed">
+                Discover how transitioning from the standard WhatsApp Business app to the official API can 10x your
+                sales team's productivity.
+            </p>
+
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-12 mb-6 tracking-tight">Why Upgrade to the
+                API?</h2>
+            <p class="mb-6">The standard WhatsApp Business application is great for solo entrepreneurs. However, as your
+                team grows, sharing a single phone becomes a bottleneck. The Official WhatsApp Business API solves this
+                by allowing multiple agents to log into the same number simultaneously using a CRM like Zokata.</p>
+
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-10 mb-4 tracking-tight">1. Multi-Agent
+                Support</h3>
+            <p class="mb-6">With the API, you can have your entire sales and support team handling inquiries from one
+                central WhatsApp number. No more lost leads, delayed responses, or phones dying during a critical
+                product launch.</p>
+
+            <div class="bg-primary/5 border border-primary/20 rounded-2xl p-6 my-8 shadow-sm">
+                <h4 class="font-bold text-primary flex items-center gap-2 mb-2"><span
+                        class="material-symbols-outlined">lightbulb</span> Quick Tip</h4>
+                <p class="text-sm text-slate-700 dark:text-slate-300 m-0">Zokata automatically routes new leads to
+                    available agents, ensuring a response time of under 5 minutes.</p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-10 mb-4 tracking-tight">2. Advanced
+                Automation</h3>
+            <p class="mb-6">Set up intelligent auto-replies based on keywords or business hours. Guide prospects through
+                a qualification flow before a human agent even steps in. Imagine waking up to pre-qualified leads ready
+                to buy.</p>
+
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mt-10 mb-4 tracking-tight">3. Rich Messaging &
+                Templates</h3>
+            <p class="mb-6">Send interactive buttons, product lists, and rich media directly in the chat, creating a
+                mini-app experience right within WhatsApp. Furthermore, use pre-approved templates to initiate
+                conversations or send vital updates notifications safely.</p>
+
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-12 mb-6 tracking-tight">Getting Started with
+                Zokata</h2>
+            <p class="mb-6">Zokata makes it incredibly easy to harness the power of the WhatsApp API without any coding
+                required. Our visual pipeline and auto-follow-up features integrate seamlessly with your existing
+                workflows.</p>
+            <p class="mb-12">Ready to scale your business? <a href="signup.html"
+                    class="font-bold text-primary hover:underline">Start your free trial today</a> and see the
+                difference.</p>
+
+            <div class="border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 flex items-center justify-between">
+                <div class="flex gap-4">
+                    <button
+                        class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-semibold">
+                        <span class="material-symbols-outlined text-xl">thumb_up</span> Helpful
+                    </button>
+                    <button
+                        class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-semibold">
+                        <span class="material-symbols-outlined text-xl">share</span> Share
+                    </button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                            <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                        </div>
+                        <span
+                            class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">Empowering Malaysian SMEs with
+                        the smartest WhatsApp CRM designed to close deals faster and manage leads effortlessly.</p>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-12 w-full md:w-auto flex-grow justify-end">
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Product</h4>
+                        <ul class="space-y-4">
+                            <li><a href="index.html#features"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Features</a>
+                            </li>
+                            <li><a href="index.html#pricing"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Pricing</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Integrations</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Resources</h4>
+                        <ul class="space-y-4">
+                            <li><a href="blog.html"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Blog</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Help
+                                    Center</a></li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">API
+                                    Docs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 dark:text-slate-500 text-sm">© 2026 Zokata Global. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors text-sm">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

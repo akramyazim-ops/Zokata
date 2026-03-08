@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="ms"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Saluran Jualan | Wago CRM</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col">
+<div class="p-6 flex flex-col gap-6 h-full">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-primary rounded-lg p-2 text-white">
+<span class="material-symbols-outlined block">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">Wago CRM</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-normal">Pengurusan Jualan</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 grow">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Papan Pemuka</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">view_kanban</span>
+<span class="text-sm font-bold">Saluran Jualan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-medium">Pelanggan</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Laporan</span>
+</a>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Tetapan</span>
+</a>
+</div>
+</nav>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<a class="text-slate-500 hover:text-primary flex items-center gap-1 text-sm font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Kembali ke Papan Pemuka
+                </a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Cari prospek..." type="text"/>
+</div>
+<button class="bg-primary text-white font-bold text-sm px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-lg leading-none">add</span>
+                    Tambah Lead
+                </button>
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-300 dark:border-slate-600">
+<img class="w-full h-full object-cover" data-alt="Avatar profile user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAa2RLgAZ77YKnHonkTXzoHWMcha9Nu0-ledw6OuMfAwGdPg9OAWCgv845nRScAtZiuMZFG7q_PduD--1Rh9DlhOsyjor9QJhrdg8Ofc3ktKwfb3LZKMe_d9AGDFvN44KVsn7bqauVpE52NgI9kaKofFMNnlHkbcjqznfp-Cmb4F0jTSEMOb_6tqM2xYvtRZcEgsnqljK2N5LGqIPT__J8f3wTXnL0EbNdVM8PzHoi64bYm-18y7W0JWAXKXRB5XUOg9LWad4ywGgO"/>
+</div>
+</div>
+</header>
+<!-- Board Section -->
+<div class="flex-1 overflow-x-auto p-8">
+<div class="flex flex-col gap-6 min-w-max h-full">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Saluran Jualan</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Jejak dan urus setiap fasa jualan prospek anda.</p>
+</div>
+<!-- Kanban Board -->
+<div class="flex gap-6 flex-1 items-start">
+<!-- Column: Baru -->
+<div class="flex flex-col gap-4 w-72 shrink-0 h-full">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-400"></span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">Baru</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_horiz</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pb-4">
+<!-- Card -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-primary/50 cursor-grab active:cursor-grabbing">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Amirah Bakar</h4>
+<span class="text-green-500 font-bold text-xs">WhatsApp</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<p class="text-primary font-bold text-sm">RM 2,500.00</p>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User avatar small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBILvsx05ZR4eL1Nz9V_jKJ0smtH_Uo1viq-xdIQhD3VVoywSfsE3zOChIZJwWqTR0X2OxididcGtlLyjHk9zuynaBclegEFapg5v2GfFhwR3EUv9NFlY87sj5sFa-lPE6hWk-npSybwUyGPvZVQi1HE9lWdaxQOfCHKNbjWn4PBzk6Xv8qFdHiNP2X8jxYRBfQEirr4t0Rs7MMtaIM0oad7kfsHbTM-sE9705nX8rWjLL_M8xOjBflTQYMXOjJbpPxHmtZ8dcl7mc2"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-primary/50 cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Zulkifli Hassan</h4>
+<span class="material-symbols-outlined text-primary text-xl">chat</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<p class="text-primary font-bold text-sm">RM 1,200.00</p>
+<span class="text-[10px] text-slate-400">2 hari lalu</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Berminat -->
+<div class="flex flex-col gap-4 w-72 shrink-0 h-full">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">Berminat</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs px-2 py-0.5 rounded-full font-bold">2</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_horiz</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pb-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-primary/50 cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Siti Nurhaliza</h4>
+<div class="bg-primary/20 p-1 rounded-md">
+<span class="material-symbols-outlined text-primary text-sm leading-none block">call</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4">
+<p class="text-primary font-bold text-sm">RM 8,000.00</p>
+<span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded font-medium">Hot</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Berunding -->
+<div class="flex flex-col gap-4 w-72 shrink-0 h-full">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-orange-400"></span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">Berunding</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs px-2 py-0.5 rounded-full font-bold">4</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_horiz</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pb-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm border-dashed border-2 opacity-50">
+<div class="h-24 flex items-center justify-center text-slate-400 text-xs italic">Sedia untuk drag-and-drop</div>
+</div>
+</div>
+</div>
+<!-- Column: Berjaya -->
+<div class="flex flex-col gap-4 w-72 shrink-0 h-full">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">Berjaya</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs px-2 py-0.5 rounded-full font-bold">12</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_horiz</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pb-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border-l-4 border-l-primary border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Ahmad Albab</h4>
+<span class="material-symbols-outlined text-primary text-xl">verified</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<p class="text-primary font-bold text-sm">RM 15,000.00</p>
+<span class="text-[10px] text-slate-400">Selesai semalam</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Gagal -->
+<div class="flex flex-col gap-4 w-72 shrink-0 h-full">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-400"></span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">Gagal</h3>
+<span class="bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs px-2 py-0.5 rounded-full font-bold">5</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_horiz</span>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pb-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm opacity-75 grayscale">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm">Wong Kian</h4>
+<span class="material-symbols-outlined text-slate-400 text-xl">block</span>
+</div>
+<div class="flex items-center justify-between mt-4">
+<p class="text-slate-400 font-bold text-sm">RM 5,000.00</p>
+<span class="text-xs text-red-500 font-medium">Batal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Settings | Zokata</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+    <div class="flex h-full" id="main-layout">
+        <!-- Sidebar and Header injected here -->
+        <main class="flex-1 flex flex-col overflow-hidden" id="main-content">
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-10 space-y-8" id="settings-content">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <div class="premium-card p-10">
+                        <h3 class="text-2xl font-black mb-10">Business Profile</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Company
+                                    Name</label>
+                                <input type="text" id="companyNameInput" value=""
+                                    class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm font-bold focus:ring-4 focus:ring-primary/10">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Official
+                                    Email</label>
+                                <input type="email" id="emailInput" value=""
+                                    class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm font-bold focus:ring-4 focus:ring-primary/10">
+                            </div>
+                            <div class="md:col-span-2 space-y-4">
+                                <label
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Business
+                                    Logo</label>
+                                <div class="flex items-center gap-6">
+                                    <div class="size-24 rounded-3xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-dashed border-slate-200 dark:border-slate-700"
+                                        id="logo-preview-container">
+                                        <img src="" id="logoPreview" class="w-full h-full object-cover hidden">
+                                        <span class="material-symbols-outlined text-slate-300 text-3xl"
+                                            id="logo-placeholder">image</span>
+                                    </div>
+                                    <div class="flex-1 space-y-3">
+                                        <input type="file" id="logoUpload" class="hidden" accept="image/*">
+                                        <button onclick="document.getElementById('logoUpload').click()"
+                                            class="bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 px-6 py-3 rounded-2xl text-sm font-bold hover:bg-slate-50 transition-all flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-primary text-xl">upload</span>
+                                            Upload Logo
+                                        </button>
+                                        <p class="text-[10px] text-slate-500 font-medium leading-relaxed">Format: PNG,
+                                            JPG or JPEG. Recommended size 512x512 pixels.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-10">
+                        <h3 class="text-2xl font-black mb-10">System & Display</h3>
+                        <div class="space-y-6">
+                            <div
+                                class="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800 rounded-3xl">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="size-12 rounded-2xl bg-white dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 shadow-sm">
+                                        <span class="material-symbols-outlined">dark_mode</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold">Dark Mode</p>
+                                        <p class="text-xs text-slate-500">Change application theme to dark or light.</p>
+                                    </div>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="darkModeToggle" class="sr-only peer">
+                                    <div
+                                        class="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div
+                                class="flex items-center justify-between p-6 bg-slate-50 dark:bg-slate-800 rounded-3xl">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="size-12 rounded-2xl bg-white dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 shadow-sm">
+                                        <span class="material-symbols-outlined">notifications</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold">Desktop Notifications</p>
+                                        <p class="text-xs text-slate-500">Receive new lead alerts directly to your
+                                            desktop.</p>
+                                    </div>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div
+                                        class="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-10">
+                        <h3 class="text-2xl font-black mb-10">Billing & Subscription</h3>
+                        <div
+                            class="bg-primary/5 border border-primary/20 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div class="flex items-center gap-6">
+                                <div
+                                    class="size-20 rounded-3xl bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
+                                    <span class="material-symbols-outlined text-4xl">workspace_premium</span>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <h4 class="text-xl font-black" id="currentTierName">Loading...</h4>
+                                        <span
+                                            class="px-3 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase tracking-widest">Active</span>
+                                    </div>
+                                    <p class="text-slate-500 text-sm font-medium">Trial ends: <span id="trialEndDate"
+                                            class="text-slate-900 dark:text-white font-bold">...</span></p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="index.html#pricing"
+                                    class="px-6 py-3 rounded-2xl font-bold bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-sm hover:bg-slate-50 transition-all">Change
+                                    Plan</a>
+                                <button onclick="alert('Manage subscription via BillPlz Dashboard')"
+                                    class="px-6 py-3 rounded-2xl font-bold bg-slate-900 text-white text-sm hover:opacity-90 transition-all">Manage
+                                    Billing</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-4">
+                        <button
+                            class="px-8 py-4 rounded-2xl font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Reset</button>
+                        <button class="btn-primary px-10 py-4">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await ZokatAuth.requireAuth();
+            if (!user) return;
+
+            await loadAllUserData();
+            ZokatAuth.applyTierGating(user.features);
+
+            initLayout('settings');
+
+            // Populate Tier Info
+            document.getElementById('currentTierName').innerText = user.tier + ' Plan';
+            if (user.trial_ends) {
+                const date = new Date(user.trial_ends);
+                document.getElementById('trialEndDate').innerText = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            }
+
+            // Populate Form
+            document.getElementById('companyNameInput').value = WagoData.settings.companyName || '';
+            document.getElementById('emailInput').value = WagoData.settings.email || user.email;
+
+            // Logo Upload logic
+            const logoUpload = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
+            const logoPlaceholder = document.getElementById('logoPlaceholder');
+            let base64Logo = WagoData.settings.businessLogo || null;
+
+            if (base64Logo) {
+                logoPreview.src = base64Logo;
+                logoPreview.classList.remove('hidden');
+                logoPlaceholder.classList.add('hidden');
+            }
+
+            logoUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        base64Logo = event.target.result;
+                        logoPreview.src = base64Logo;
+                        logoPreview.classList.remove('hidden');
+                        logoPlaceholder.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Save values
+            document.querySelector('.btn-primary.px-10.py-4').addEventListener('click', async () => {
+                const btn = document.querySelector('.btn-primary.px-10.py-4');
+                btn.disabled = true;
+                btn.innerText = 'Saving...';
+
+                WagoData.settings.companyName = document.getElementById('companyNameInput').value;
+                WagoData.settings.email = document.getElementById('emailInput').value;
+                WagoData.settings.businessLogo = base64Logo;
+
+                await saveWagoData('settings');
+                alert('Settings saved successfully!');
+                window.location.reload(); // Refresh to update sidebar
+            });
+        });
+    </script>
+</body>
+
+</html>

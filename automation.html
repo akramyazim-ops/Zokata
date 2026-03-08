@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Automation | Zokata</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+    <div class="flex h-full" id="main-layout">
+        <!-- Sidebar and Header injected here -->
+        <main class="flex-1 flex flex-col overflow-hidden" id="main-content">
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-10 space-y-8" id="automation-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="premium-card p-8 group relative overflow-hidden" data-tier-require="autoWhatsApp">
+                        <div
+                            class="absolute top-0 left-0 w-2 h-full bg-primary/40 group-hover:bg-primary transition-all">
+                        </div>
+                        <div class="flex items-center justify-between mb-8">
+                            <div
+                                class="size-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                                <span class="material-symbols-outlined text-3xl">mail</span>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div
+                                    class="w-12 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                </div>
+                            </label>
+                        </div>
+                        <h3 class="text-xl font-black mb-2">Auto WhatsApp Response</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed mb-8">Automatically reply to customer messages
+                            when a new lead is registered via Facebook Ads.</p>
+                        <button onclick="openWorkflowModal('whatsapp')"
+                            class="w-full btn-outline py-3 hover:bg-primary/5 transition-all">Manage Workflow</button>
+                    </div>
+
+                    <div class="premium-card p-8 group relative overflow-hidden" data-tier-require="followUpReminder">
+                        <div
+                            class="absolute top-0 left-0 w-2 h-full bg-blue-400/40 group-hover:bg-blue-400 transition-all">
+                        </div>
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="size-14 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-3xl">notifications_active</span>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div
+                                    class="w-12 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                </div>
+                            </label>
+                        </div>
+                        <h3 class="text-xl font-black mb-2">Follow-up Reminder</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed mb-8">Send notifications to admin if a lead is
+                            not contacted within 24 hours.</p>
+                        <button onclick="openWorkflowModal('notifications')"
+                            class="w-full btn-outline py-3 hover:bg-blue-50 transition-all">Manage
+                            Notifications</button>
+                    </div>
+
+                    <div class="premium-card p-8 group relative overflow-hidden opacity-60"
+                        data-tier-require="advancedAutomation">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-slate-300 transition-all"></div>
+                        <span
+                            class="absolute top-4 right-4 bg-slate-100 dark:bg-slate-800 text-[10px] font-black px-2 py-1 rounded">COMING
+                            SOON</span>
+                        <div class="flex items-center justify-between mb-8">
+                            <div
+                                class="size-14 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-3xl">smart_toy</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black mb-2">AI Lead Scoring</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed mb-8">Use AI to filter and decide which leads
+                            have the highest potential for closing.</p>
+                        <button
+                            class="w-full border-2 border-dashed border-slate-200 dark:border-slate-800 text-slate-400 py-3 rounded-2xl font-black text-sm cursor-not-allowed">Coming
+                            Soon</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await ZokatAuth.requireAuth();
+            if (!user) return;
+
+            await loadAllUserData();
+            ZokatAuth.applyTierGating(user.features);
+
+            initLayout('automation');
+        });
+    </script>
+</body>
+
+</html>

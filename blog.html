@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zokata - Blog & Updates</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#25d466",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#122017",
+                        "neutral-custom": "#658671",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background-color: #122017;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 212, 102, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 212, 102, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-header {
+            background: rgba(18, 32, 23, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased font-display relative overflow-x-hidden">
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 w-full glass-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                        <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                </a>
+                <nav class="hidden md:flex space-x-10">
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#features">Features</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="index.html#pricing">Pricing</a>
+                    <a class="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                        href="showcase.html">Showcase</a>
+                    <a class="text-sm font-bold text-primary transition-colors" href="blog.html">Blog</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="login.html"
+                        class="hidden sm:inline-flex text-sm font-bold text-slate-700 dark:text-slate-200 px-6 py-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">Login</a>
+                    <a href="signup.html" class="btn-primary" style="padding: 0.65rem 1.5rem;">
+                        Try for Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 hero-bg overflow-hidden border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1
+                class="reveal active text-5xl md:text-7xl font-black tracking-tighter text-white mb-6 max-w-4xl mx-auto drop-shadow-2xl">
+                Insights & <span class="text-primary italic">Updates</span>
+            </h1>
+            <p class="reveal active text-lg md:text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed"
+                style="transition-delay: 100ms;">
+                The latest news, tips, and strategies for growing your business with WhatsApp automation.
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Grid Section -->
+    <section class="py-20 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Article 1 -->
+                <article
+                    class="reveal bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group flex flex-col"
+                    style="transition-delay: 100ms;">
+                    <div class="aspect-video bg-slate-200 dark:bg-slate-800 w-full overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
+                            alt="WhatsApp Business Strategy"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs font-bold text-primary uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full">Guide</span>
+                            <span class="text-sm text-slate-500 dark:text-slate-400">March 9, 2026</span>
+                        </div>
+                        <h2
+                            class="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-primary transition-colors">
+                            The Ultimate Guide to WhatsApp Business API
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3">
+                            Discover how transitioning from the standard WhatsApp Business app to the official API can
+                            10x your sales team's productivity.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="article-3.html"
+                                class="inline-flex items-center text-primary font-bold hover:underline">
+                                Read Article <span
+                                    class="material-symbols-outlined text-sm ml-1 transition-transform group-hover:translate-x-1">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article
+                    class="reveal bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group flex flex-col"
+                    style="transition-delay: 200ms;">
+                    <div class="aspect-video bg-slate-200 dark:bg-slate-800 w-full overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"
+                            alt="Sales Automation"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs font-bold text-primary uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full">Case
+                                Study</span>
+                            <span class="text-sm text-slate-500 dark:text-slate-400">February 28, 2026</span>
+                        </div>
+                        <h2
+                            class="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-primary transition-colors">
+                            How ABC Corp Cut Response Times by 80%
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3">
+                            See how an established local SME implemented Zokata to automate follow-up reminders and
+                            significantly boost their conversion rate.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="article-2.html"
+                                class="inline-flex items-center text-primary font-bold hover:underline">
+                                Read Article <span
+                                    class="material-symbols-outlined text-sm ml-1 transition-transform group-hover:translate-x-1">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article
+                    class="reveal bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group flex flex-col"
+                    style="transition-delay: 300ms;">
+                    <div class="aspect-video bg-slate-200 dark:bg-slate-800 w-full overflow-hidden relative">
+                        <div
+                            class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10">
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop"
+                            alt="Sales Analytics"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs font-bold text-primary uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-full">Updates</span>
+                            <span class="text-sm text-slate-500 dark:text-slate-400">February 15, 2026</span>
+                        </div>
+                        <h2
+                            class="text-2xl font-bold text-slate-900 dark:text-white mb-4 line-clamp-2 group-hover:text-primary transition-colors">
+                            Product Update: Real-Time Leads Dashboard
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3">
+                            We've just launched our completely revamped leads dashboard. Track team performance and
+                            unread messages faster than ever.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="article-2.html"
+                                class="inline-flex items-center text-primary font-bold hover:underline">
+                                Read Article <span
+                                    class="material-symbols-outlined text-sm ml-1 transition-transform group-hover:translate-x-1">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
+                <div class="max-w-xs">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="size-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20">
+                            <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                        </div>
+                        <span
+                            class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Zokata</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">Empowering Malaysian SMEs with
+                        the smartest WhatsApp CRM designed to close deals faster and manage leads effortlessly.</p>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-12 w-full md:w-auto flex-grow justify-end">
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Product</h4>
+                        <ul class="space-y-4">
+                            <li><a href="index.html#features"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Features</a>
+                            </li>
+                            <li><a href="index.html#pricing"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Pricing</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Integrations</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6 tracking-wide">Resources</h4>
+                        <ul class="space-y-4">
+                            <li><a href="blog.html"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Blog</a>
+                            </li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">Help
+                                    Center</a></li>
+                            <li><a href="#"
+                                    class="text-slate-500 dark:text-slate-400 hover:text-primary text-sm transition-colors">API
+                                    Docs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 dark:text-slate-500 text-sm">© 2026 Zokata Global. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-slate-400 hover:text-primary transition-colors text-sm">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

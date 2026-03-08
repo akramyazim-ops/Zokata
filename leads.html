@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Zokata - Leads Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#25d466", "background-light": "#f6f8f7", "background-dark": "#122017" },
+                    fontFamily: { "display": ["Manrope", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+    <div class="flex h-full" id="main-layout">
+        <!-- Sidebar and Header injected here -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden" id="main-content">
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-10 space-y-8" id="leads-content">
+                <!-- Lead Limit Banner (Basic Tier) -->
+                <div id="leadLimitBanner"
+                    class="hidden bg-orange-500/10 border border-orange-500/20 p-4 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-orange-500">info</span>
+                        <p class="text-sm font-bold text-orange-200">Lead Limit: <span id="leadCountDisplay">0</span> /
+                            100 used. <span class="font-normal opacity-70">Upgrade to Growth for unlimited leads.</span>
+                        </p>
+                    </div>
+                    <a href="settings.html?tab=billing"
+                        class="text-xs font-black uppercase tracking-widest text-orange-500 hover:underline">Upgrade
+                        Now</a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="premium-card p-6 flex flex-col gap-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Leads</p>
+                        <p class="text-3xl font-black" id="total-leads-count">0</p>
+                    </div>
+                    <div class="premium-card p-6 flex flex-col gap-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">New Today</p>
+                        <p class="text-3xl font-black text-primary" id="new-leads-count">0</p>
+                    </div>
+                    <div class="premium-card p-6 flex flex-col gap-2">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Pending Response</p>
+                        <p class="text-3xl font-black text-orange-500" id="pending-leads-count">0</p>
+                    </div>
+                </div>
+
+                <div class="premium-card">
+                    <div
+                        class="p-8 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-slate-50/30 dark:bg-slate-800/20 gap-4">
+                        <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                            <!-- Segment Toggle -->
+                            <div
+                                class="flex bg-white dark:bg-slate-900 p-1 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <button onclick="setSegment('leads')" id="segment-leads"
+                                    class="px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl bg-primary text-white transition-all">Leads</button>
+                                <button onclick="setSegment('groups')" id="segment-groups"
+                                    class="px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl text-slate-400 hover:text-slate-600 transition-all">Groups</button>
+                            </div>
+                            <div class="relative w-full md:w-64">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                                <input type="text" id="search-input" placeholder="Search..."
+                                    class="w-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl pl-12 pr-6 py-2 text-sm focus:ring-4 focus:ring-primary/10 transition-all">
+                            </div>
+                            <select id="status-filter"
+                                class="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl px-6 py-2 text-sm font-bold focus:ring-4 focus:ring-primary/10">
+                                <option value="">All Statuses</option>
+                                <option value="New">New</option>
+                                <option value="Qualified">Qualified</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-4 w-full md:w-auto">
+                            <input type="file" id="excel-import" accept=".xlsx, .xls" class="hidden"
+                                onchange="handleFile(event)">
+                            <button onclick="document.getElementById('excel-import').click()"
+                                data-tier-require="unlimitedLeads"
+                                class="btn-outline px-6 py-2.5 flex items-center gap-2">
+                                <span class="material-symbols-outlined">upload_file</span> Import Excel
+                            </button>
+                            <button onclick="showAddLeadForm()" class="btn-primary w-full md:w-auto">
+                                <span class="material-symbols-outlined">person_add</span> Register Lead
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead
+                                class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-800">
+                                <tr>
+                                    <th class="p-6">Customer Name</th>
+                                    <th class="p-6 text-center">Status</th>
+                                    <th class="p-6">Source</th>
+                                    <th class="p-6">Date</th>
+                                    <th class="p-6 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50 dark:divide-slate-800" id="leads-table-body">
+                                <!-- Leads will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script>
+        let currentSegment = 'leads';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await ZokatAuth.requireAuth();
+            if (!user) return;
+
+            await loadAllUserData();
+            ZokatAuth.applyTierGating(user.features);
+
+            initLayout('leads');
+            renderLeads();
+
+            // Setup filters
+            document.getElementById('search-input').addEventListener('input', renderLeads);
+            document.getElementById('status-filter').addEventListener('change', renderLeads);
+
+            // Check for action in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('action') === 'new') {
+                showAddLeadForm();
+            }
+
+            // Real-time update listener
+            window.addEventListener('wago-data-update', (e) => {
+                console.log('Leads page received data update:', e.detail.type);
+                renderLeads();
+            });
+
+            window.addEventListener('wago-error', (e) => {
+                alert(e.detail);
+            });
+        });
+
+        function setSegment(segment) {
+            currentSegment = segment;
+
+            // UI Update
+            const btnLeads = document.getElementById('segment-leads');
+            const btnGroups = document.getElementById('segment-groups');
+
+            if (segment === 'leads') {
+                btnLeads.className = 'px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl bg-primary text-white transition-all';
+                btnGroups.className = 'px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl text-slate-400 hover:text-slate-600 transition-all';
+                document.getElementById('status-filter').disabled = false;
+                document.getElementById('status-filter').classList.remove('opacity-50');
+            } else {
+                btnGroups.className = 'px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl bg-primary text-white transition-all';
+                btnLeads.className = 'px-6 py-2 text-xs font-black uppercase tracking-widest rounded-xl text-slate-400 hover:text-slate-600 transition-all';
+                document.getElementById('status-filter').disabled = true;
+                document.getElementById('status-filter').classList.add('opacity-50');
+            }
+
+            renderLeads();
+        }
+
+        function renderLeads() {
+            const tableBody = document.getElementById('leads-table-body');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value;
+
+            // Calculate dynamic stats
+            const totalActiveLeads = WagoData.leads.filter(l => l.status !== 'Converted' && l.source !== 'WhatsApp Group').length;
+            const newLeadsToday = WagoData.leads.filter(l => l.date && l.date.includes('Today') && l.source !== 'WhatsApp Group').length;
+            const pendingLeads = WagoData.leads.filter(l => l.status === 'New' && l.source !== 'WhatsApp Group').length;
+
+            document.getElementById('total-leads-count').innerText = totalActiveLeads;
+            document.getElementById('new-leads-count').innerText = newLeadsToday;
+            document.getElementById('pending-leads-count').innerText = pendingLeads;
+
+            // Update limit banner if present
+            const limitBanner = document.getElementById('leadLimitBanner');
+            if (limitBanner && !limitBanner.classList.contains('hidden')) {
+                document.getElementById('leadCountDisplay').innerText = totalActiveLeads;
+            }
+
+            let sourceData = currentSegment === 'leads' ? WagoData.leads : (WagoData.groups || []);
+
+            const filteredLeads = sourceData.filter(lead => {
+                const matchesSearch = (lead.name || "").toLowerCase().includes(searchTerm) || (lead.phone || "").includes(searchTerm);
+                const matchesStatus = currentSegment === 'groups' || !statusFilter || lead.status === statusFilter;
+                const isNotConverted = lead.status !== 'Converted';
+                // Double check to exclude groups from leads segment
+                if (currentSegment === 'leads' && (lead.source === 'WhatsApp Group' || lead.phone.includes('@g.us'))) return false;
+
+                return matchesSearch && matchesStatus && isNotConverted;
+            });
+
+            if (filteredLeads.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-slate-400 font-bold italic">No ${currentSegment === 'leads' ? 'leads' : 'group messages'} found...</td></tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = filteredLeads.map(lead => `
+                <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
+                    <td class="p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="size-10 rounded-2xl ${currentSegment === 'groups' ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-500' : (lead.status === 'Qualified' ? 'bg-primary/10 text-primary' : 'bg-orange-50 dark:bg-orange-900/20 text-orange-600')} flex items-center justify-center font-black">
+                                ${currentSegment === 'groups' ? '<span class="material-symbols-outlined text-sm">groups</span>' : (lead.initial || 'L')}
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold flex items-center gap-2">
+                                    ${lead.name}
+                                    ${lead.unread ? '<span class="size-2 bg-red-500 rounded-full animate-pulse shadow-lg shadow-red-500/50" title="New Message"></span>' : ''}
+                                </p>
+                                <p class="text-xs text-slate-500">${lead.phone}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 text-center">
+                        <span class="px-4 py-1.5 rounded-full ${currentSegment === 'groups' ? 'bg-indigo-500 text-white' : (lead.status === 'New' ? 'bg-blue-50 text-blue-600' : 'bg-primary/10 text-primary')} text-[10px] font-black uppercase tracking-widest">${currentSegment === 'groups' ? 'Group' : lead.status}</span>
+                    </td>
+                    <td class="p-6 text-sm font-bold text-slate-600 dark:text-slate-400">${lead.source}</td>
+                    <td class="p-6 text-xs text-slate-400 font-bold">
+                        ${currentSegment === 'groups' ? `<p class="max-w-[150px] truncate text-slate-500 italic">"${lead.message}"</p>` : lead.date}
+                    </td>
+                    <td class="p-6 text-right">
+                        ${currentSegment === 'leads' ? `
+                        <button onclick="openChat('${lead.phone}', '${lead.name}'); markLeadAsRead('${lead.phone}')"
+                           class="inline-flex items-center justify-center size-10 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all rounded-xl shadow-none hover:shadow-lg hover:shadow-primary/20"
+                           title="Open Internal Chat">
+                            <span class="material-symbols-outlined text-xl font-bold">chat</span>
+                        </button>` : `
+                        <button class="size-10 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 cursor-not-allowed" title="Group details">
+                            <span class="material-symbols-outlined text-xl">info</span>
+                        </button>`}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showLeadDetails(id) {
+            const lead = WagoData.leads.find(l => l.id === id);
+            if (!lead) return;
+
+            openModal(
+                `Lead Details: ${lead.name}`,
+                `
+                <div class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
+                            <p class="font-bold text-primary">${lead.status}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Source</p>
+                            <p class="font-bold text-slate-700 dark:text-slate-200">${lead.source}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Phone</p>
+                            <p class="font-bold text-slate-700 dark:text-slate-200">${lead.phone}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Registration Date</p>
+                            <p class="font-bold text-slate-700 dark:text-slate-200">${lead.date}</p>
+                        </div>
+                    </div>
+                </div>
+                `
+            );
+        }
+
+        function showAddLeadForm() {
+            openModal(
+                'Register New Lead',
+                `
+                <form id="newLeadForm" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
+                        <input type="text" id="leadName" required class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10" placeholder="Example: John Doe">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone No.</label>
+                        <input type="tel" id="leadPhone" required class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10" placeholder="+60 12-345 6789">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Source</label>
+                        <select id="leadSource" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 py-4 text-sm focus:ring-4 focus:ring-primary/10 font-bold">
+                            <option>Facebook Ads</option>
+                            <option>Google Search</option>
+                            <option>WhatsApp Direct</option>
+                            <option>Referral</option>
+                        </select>
+                    </div>
+                </form>
+                `,
+                `
+                <button onclick="closeModal()" class="px-6 py-3 rounded-2xl font-bold text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-sm">Cancel</button>
+                <button type="submit" form="newLeadForm" class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.875rem;">Save Lead</button>
+                `
+            );
+
+            // Check lead limit for Basic tier
+            const user = ZokatAuth.getUser();
+            const currentCount = WagoData.leads.length;
+            if (user && user.features && user.features.leadLimit !== 'Infinity' && currentCount >= user.features.leadLimit) {
+                alert(`You have reached your limit of ${user.features.leadLimit} leads on the Basic plan. Please upgrade to Growth or Scale for unlimited leads.`);
+                closeModal();
+                return;
+            }
+
+            document.getElementById('newLeadForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button[type="submit"]');
+                if (btn) btn.disabled = true;
+
+                const name = document.getElementById('leadName').value;
+                const phone = document.getElementById('leadPhone').value;
+                const source = document.getElementById('leadSource').value;
+
+                const result = await addNewLead(name, phone, source);
+                if (result) {
+                    renderLeads();
+                    closeModal();
+                } else {
+                    if (btn) btn.disabled = false;
+                }
+            };
+        }
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet);
+
+                let count = 0;
+                json.forEach(row => {
+                    const name = row.Name || row.Nama || row['Full Name'];
+                    const phone = row.Phone || row.Telefon || row['Phone Number'];
+                    const source = row.Source || row.Sumber || 'Excel Import';
+
+                    if (name && phone) {
+                        addNewLead(name.toString(), phone.toString(), source.toString());
+                        count++;
+                    }
+                });
+
+                if (count > 0) {
+                    alert(`${count} leads successfully imported!`);
+                    renderLeads();
+                } else {
+                    alert('No valid data found in Excel file. Make sure there are Name and Phone columns.');
+                }
+
+                // Reset input
+                event.target.value = '';
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // --- INTERNAL CHAT INTERFACE ---
+        let activeChatPhone = null;
+
+        function openChat(phone, name) {
+            activeChatPhone = phone;
+            const modal = document.getElementById('chat-modal');
+            const title = document.getElementById('chat-contact-name');
+            const messagesContainer = document.getElementById('chat-messages');
+
+            title.innerText = name;
+            messagesContainer.innerHTML = '<div class="flex justify-center p-10"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>';
+
+            modal.classList.remove('translate-x-full');
+
+            // Fetch history from server
+            if (window.fetchChatHistory) {
+                window.fetchChatHistory(phone);
+            }
+        }
+
+        function closeChat() {
+            activeChatPhone = null;
+            document.getElementById('chat-modal').classList.add('translate-x-full');
+        }
+
+        function handleSend() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (msg && activeChatPhone && window.sendInternalMessage) {
+                window.sendInternalMessage(activeChatPhone, msg);
+                input.value = '';
+            }
+        }
+
+        // Listen for chat events
+        window.addEventListener('whatsapp-chat-history', (e) => {
+            if (activeChatPhone !== e.detail.phone) return;
+            renderMessages(e.detail.messages);
+        });
+
+        window.addEventListener('whatsapp-new-message', (e) => {
+            if (activeChatPhone !== e.detail.phone) return;
+            addMessageToChat(e.detail);
+        });
+
+        window.addEventListener('whatsapp-send-success', (e) => {
+            if (activeChatPhone !== e.detail.phone) return;
+            addMessageToChat({
+                body: e.detail.message,
+                fromMe: true,
+                timestamp: Math.floor(Date.now() / 1000)
+            });
+        });
+
+        function renderMessages(messages) {
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = messages.map(msg => createMessageHtml(msg)).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addMessageToChat(msg) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.innerHTML = createMessageHtml(msg);
+            container.appendChild(div.firstElementChild);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function createMessageHtml(msg) {
+            const date = new Date(msg.timestamp * 1000);
+            const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (msg.fromMe) {
+                return `
+                    <div class="flex justify-end mb-4 animate-in slide-in-from-right-4 duration-300">
+                        <div class="max-w-[80%] bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-sm">
+                            <p class="text-sm font-medium leading-relaxed">${msg.body}</p>
+                            <p class="text-[10px] opacity-70 mt-1 font-bold text-right">${timeStr}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="flex justify-start mb-4 animate-in slide-in-from-left-4 duration-300">
+                        <div class="max-w-[80%] bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-4 rounded-2xl rounded-tl-none shadow-sm">
+                            <p class="text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-200">${msg.body}</p>
+                            <p class="text-[10px] text-slate-400 mt-1 font-bold">${timeStr}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+    <!-- Side-over Chat Modal -->
+    <div id="chat-modal"
+        class="fixed inset-y-0 right-0 w-full md:w-[450px] bg-white dark:bg-background-dark shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 ease-in-out border-l border-slate-100 dark:border-slate-800 flex flex-col">
+
+        <!-- Header -->
+        <div
+            class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+            <div class="flex items-center gap-4">
+                <div class="size-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined font-black">person</span>
+                </div>
+                <div>
+                    <h3 id="chat-contact-name" class="font-black text-slate-800 dark:text-white leading-none mb-1">
+                        Contact Name</h3>
+                    <div class="flex items-center gap-2">
+                        <div class="size-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">WhatsApp Online</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeChat()"
+                class="size-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Messages Body -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-6 bg-slate-50/30 dark:bg-background-dark/30">
+            <!-- Messages injected here -->
+        </div>
+
+        <!-- Input Footer -->
+        <div
+            class="p-6 border-t border-slate-100 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
+            <div class="relative flex items-center gap-3">
+                <input type="text" id="chat-input" onkeydown="if(event.key === 'Enter') handleSend()"
+                    placeholder="Type your message..."
+                    class="flex-1 h-14 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl px-6 font-bold text-sm focus:ring-2 focus:ring-primary/20 transition-all">
+
+                <button onclick="handleSend()"
+                    class="size-14 bg-primary text-white rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    <span class="material-symbols-outlined font-black">send</span>
+                </button>
+            </div>
+            <p class="text-[9px] text-center text-slate-400 mt-4 font-bold uppercase tracking-widest opacity-60">This
+                message is sent directly via your linked WhatsApp number</p>
+        </div>
+    </div>
+</body>
+
+</html>
