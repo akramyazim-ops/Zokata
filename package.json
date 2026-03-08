@@ -1,8 +1,0 @@
-{
-    "name": "zokata-frontend",
-    "version": "1.0.0",
-    "scripts": {
-        "dev": "cd backend && node backend.js",
-        "build": "echo 'Static build successful'"
-    }
-}
