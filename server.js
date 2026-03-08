@@ -124,7 +124,7 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error(reason);
 });
 
-function createClient() {
+function createWhatsAppClient() {
     if (client) {
         console.log('--- CLEANING UP OLD CLIENT BEFORE CREATING NEW ONE ---');
         // We don't want multiple puppeteer instances
@@ -624,7 +624,7 @@ app.get('/billplz/callback', (req, res) => {
  * BillPlz calls this server-to-server when payment status changes.
  * URL set in BillPlz Dashboard as "Callback URL" → http://yourdomain.com/billplz/webhook
  */
-app.post('/billplz/webhook', (req, res) => {
+app.post('/billplz/webhook', async (req, res) => {
     const { 'billplz[id]': billId, 'billplz[paid]': paid, 'billplz[paid_at]': paidAt, 'billplz[x_signature]': xSignature } = req.body;
     // BillPlz card payment fields (sent when customer pays by card)
     const cardId = req.body['billplz[card][id]'] || req.body.card_id || null;
@@ -788,10 +788,10 @@ app.post('/billplz/charge-card', async (req, res) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Zokata Backend: http://localhost:${PORT}`);
-    createClient();
+    createWhatsAppClient();
     client.initialize().then(() => {
         startWatchdog();
     }).catch(err => {
