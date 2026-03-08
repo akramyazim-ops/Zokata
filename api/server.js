@@ -19,9 +19,9 @@ const io = new Server(server, {
     }
 });
 
-app.use(express.static(__dirname, { extensions: ['html'] }));
+app.use(express.static(path.join(__dirname, '..'), { extensions: ['html'] }));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
