@@ -19,7 +19,7 @@ const io = new Server(server, {
     }
 });
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { extensions: ['html'] }));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -593,7 +593,7 @@ app.post('/billplz/create-bill', async (req, res) => {
 app.get('/billplz/callback', (req, res) => {
     const { billplz } = req.query;
     if (!billplz) {
-        return res.redirect('/payment-result.html?status=error&reason=invalid_callback');
+        return res.redirect('/payment-result?status=error&reason=invalid_callback');
     }
 
     const billId = billplz['id'];
@@ -608,17 +608,17 @@ app.get('/billplz/callback', (req, res) => {
 
     if (xSignature !== expectedSig) {
         console.error('[BillPlz] CALLBACK: Invalid X-Signature! Possible tampering.');
-        return res.redirect('/payment-result.html?status=error&reason=invalid_signature');
+        return res.redirect('/payment-result?status=error&reason=invalid_signature');
     }
 
     if (paid) {
         console.log(`[BillPlz] CALLBACK: Bill ${billId} PAID at ${paidAt}`);
         const pending = pendingBills[billId];
         const emailParam = pending ? `&email=${encodeURIComponent(pending.email)}&plan=${pending.plan}` : '';
-        return res.redirect(`/payment-result.html?status=success&bill_id=${billId}${emailParam}`);
+        return res.redirect(`/payment-result?status=success&bill_id=${billId}${emailParam}`);
     } else {
         console.log(`[BillPlz] CALLBACK: Bill ${billId} NOT PAID (user returned without paying)`);
-        return res.redirect(`/payment-result.html?status=cancelled&bill_id=${billId}`);
+        return res.redirect(`/payment-result?status=cancelled&bill_id=${billId}`);
     }
 });
 

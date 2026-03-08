@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
@@ -31,7 +31,7 @@
         <div class="text-center mb-10">
             <div
                 class="size-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary/5 overflow-hidden">
-                <img src="img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
+                <img src="/img/logo.jpg" alt="Zokata Logo" class="w-full h-full object-cover">
             </div>
             <h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Zokata</h2>
             <p class="text-slate-500 mt-2 font-medium">Login to your Zokata dashboard.</p>
@@ -73,7 +73,7 @@
 
             <div class="mt-10 pt-10 border-t border-slate-50 dark:border-slate-800 text-center">
                 <p class="text-sm text-slate-500 font-medium">Don't have an account?
-                    <a href="signup.html" class="text-primary font-black hover:underline ml-1">Sign Up Free</a>
+                    <a href="/signup" class="text-primary font-black hover:underline ml-1">Sign Up Free</a>
                 </p>
             </div>
         </div>
@@ -81,7 +81,7 @@
         <p class="text-center text-[10px] font-bold text-slate-400 mt-10 uppercase tracking-widest">© 2024 Zokata •
             SME Malaysia</p>
     </div>
-    <script src="js/auth.js"></script>
+    <script src="/js/auth.js"></script>
     <script>
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -107,7 +107,7 @@
                 // Sync session to auth helper
                 await ZokatAuth.requireAuth();
 
-                window.location.href = 'dashboard.html';
+                window.location.href = '/dashboard';
             } catch (err) {
                 console.error('Login error:', err);
                 errorEl.textContent = err.message || 'Login failed. Please check your credentials.';

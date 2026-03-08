@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-4">
-                                <a href="index.html#pricing"
+                                <a href="/#pricing"
                                     class="px-6 py-3 rounded-2xl font-bold bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-sm hover:bg-slate-50 transition-all">Change
                                     Plan</a>
                                 <button onclick="alert('Manage subscription via BillPlz Dashboard')"
@@ -162,9 +162,9 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/components.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/data.js"></script>
+    <script src="/js/components.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const user = await ZokatAuth.requireAuth();

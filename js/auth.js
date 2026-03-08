@@ -28,7 +28,7 @@ const ZokatAuth = (() => {
 
         if (error || !session) {
             console.log('No active session, redirecting to login...');
-            window.location.href = 'login.html';
+            window.location.href = '/login';
             return null;
         }
 
@@ -65,7 +65,7 @@ const ZokatAuth = (() => {
         const client = initClient();
         if (client) await client.auth.signOut();
         _user = null;
-        window.location.href = 'login.html';
+        window.location.href = '/login';
     }
 
     async function apiFetch(endpoint, options = {}) {

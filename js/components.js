@@ -76,11 +76,11 @@ const WagoComponents = {
 
     sidebar: (activePage) => {
         const links = [
-            { id: 'dashboard', icon: 'dashboard', label: 'Dashboard', href: 'dashboard.html' },
-            { id: 'leads', icon: 'group', label: 'Leads', href: 'leads.html' },
-            { id: 'pipeline', icon: 'filter_alt', label: 'Pipeline', href: 'pipeline.html' },
-            { id: 'automation', icon: 'bolt', label: 'Automation', href: 'automation.html' },
-            { id: 'whatsapp', icon: 'whatsapp', label: 'Connect Whatsapp', href: 'whatsapp.html' }
+            { id: 'dashboard', icon: 'dashboard', label: 'Dashboard', href: '/dashboard' },
+            { id: 'leads', icon: 'group', label: 'Leads', href: '/leads' },
+            { id: 'pipeline', icon: 'filter_alt', label: 'Pipeline', href: '/pipeline' },
+            { id: 'automation', icon: 'bolt', label: 'Automation', href: '/automation' },
+            { id: 'whatsapp', icon: 'whatsapp', label: 'Connect Whatsapp', href: '/whatsapp' }
         ];
 
         let navLinks = links.map(link => {
@@ -104,7 +104,7 @@ const WagoComponents = {
             <aside class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-full z-30">
                 <div class="p-8 flex items-center gap-3">
                     <div class="size-12 rounded-2xl overflow-hidden shadow-lg shadow-primary/20">
-                        <img src="${WagoData.settings.businessLogo || 'img/logo.jpg'}" class="w-full h-full object-cover" alt="Business Logo" id="sidebar-logo">
+                        <img src="${WagoData.settings.businessLogo || '/img/logo.jpg'}" class="w-full h-full object-cover" alt="Business Logo" id="sidebar-logo">
                     </div>
                     <div>
                         <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Zokata</h1>
@@ -118,7 +118,7 @@ const WagoComponents = {
                     <div class="pt-8 mt-8 border-t border-slate-100 dark:border-slate-800">
                         <p class="px-4 text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest mb-4">Account</p>
                          <a class="flex items-center gap-4 px-4 py-3.5 rounded-2xl ${activePage === 'settings' ? 'bg-primary/10 text-primary font-bold' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary'} transition-all font-bold"
-                            href="settings.html">
+                            href="/settings">
                             <span class="material-symbols-outlined">settings</span>
                             <span class="text-sm">Settings</span>
                         </a>
@@ -170,7 +170,7 @@ const WagoComponents = {
                         <span class="material-symbols-outlined group-hover:text-primary transition-colors">help</span>
                     </button>
                     <div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
-                    <button class="btn-primary" style="padding: 0.65rem 1.25rem; font-size: 0.875rem;" onclick="window.location.href='leads.html?action=new'">
+                    <button class="btn-primary" style="padding: 0.65rem 1.25rem; font-size: 0.875rem;" onclick="window.location.href='/leads?action=new'">
                         <span class="material-symbols-outlined text-xl">add_circle</span>
                         New Lead
                     </button>
